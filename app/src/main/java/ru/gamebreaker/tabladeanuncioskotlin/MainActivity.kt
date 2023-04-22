@@ -304,7 +304,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             imAccount.setImageResource(R.drawable.ic_account_default)
         } else if (!user.isAnonymous) {
             tvAccount.text = user.email
+            if (user.photoUrl != null) {
             Picasso.get().load(user.photoUrl).into(imAccount)
+            } else {
+                imAccount.setImageResource(R.drawable.ic_account_default)
+            }
         }
     }
 
