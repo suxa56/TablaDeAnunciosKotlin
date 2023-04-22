@@ -1,7 +1,6 @@
 package ru.gamebreaker.tabladeanuncioskotlin
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -87,10 +86,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         uiUpdate(mAuth.currentUser)
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
-
     override fun onResume() {
         super.onResume()
         binding.mainContent.botNavView.selectedItemId = R.id.id_home
@@ -160,24 +155,39 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun bottomMenuOnClick() = with(binding) {
-        mainContent.botNavView.setOnNavigationItemSelectedListener { item ->
+        mainContent.botNavView.setOnItemSelectedListener { item ->
             clearUpdate = true
             when (item.itemId) {
                 R.id.id_new_ad -> {
-                    val i = Intent(
-                        this@MainActivity,
-                        EditAdsAct::class.java
-                    ) //передаём контекст на котором находимся и активити на которое хотим перейти
-                    startActivity(i) //запускаем интент и новое активити
+                    if (!mAuth.currentUser!!.isAnonymous) {
+                        val i = Intent(
+                            this@MainActivity,
+                            EditAdsAct::class.java
+                        ) //передаём контекст на котором находимся и активити на которое хотим перейти
+                        startActivity(i) //запускаем интент и новое активити
+                    } else {
+                        dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
+                        binding.mainContent.botNavView.selectedItemId = R.id.id_home
+                    }
                 }
                 R.id.id_my_ads -> {
-                    firebaseViewModel.loadMyAds()
-                    mainContent.toolbar.title = getString(R.string.ad_my_ads)
+                    if (!mAuth.currentUser!!.isAnonymous) {
+                        firebaseViewModel.loadMyAds()
+                        mainContent.toolbar.title = getString(R.string.ad_my_ads)
+                    } else {
+                        dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
+                        binding.mainContent.botNavView.selectedItemId = R.id.id_home
+                    }
                 }
                 R.id.id_favorites -> {
-                    //Toast.makeText(this@MainActivity, "favs", Toast.LENGTH_SHORT).show()
-                    firebaseViewModel.loadMyFavs()
-                    mainContent.toolbar.title = "Избранное"
+                    if (!mAuth.currentUser!!.isAnonymous) {
+
+                        firebaseViewModel.loadMyFavs()
+                        mainContent.toolbar.title = "Избранное"
+                    } else {
+                        dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
+                        binding.mainContent.botNavView.selectedItemId = R.id.id_home
+                    }
                 }
                 R.id.id_home -> {
                     currentCategory = getString(R.string.def)
