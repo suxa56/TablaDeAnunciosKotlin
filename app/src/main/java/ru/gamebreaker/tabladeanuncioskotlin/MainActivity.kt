@@ -1,12 +1,10 @@
 package ru.gamebreaker.tabladeanuncioskotlin
-import android.app.Activity
+
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -17,14 +15,13 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -33,26 +30,25 @@ import com.squareup.picasso.Picasso
 import ru.gamebreaker.tabladeanuncioskotlin.accaunthelper.AccountHelper
 import ru.gamebreaker.tabladeanuncioskotlin.act.DescriptionActivity
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
-import ru.gamebreaker.tabladeanuncioskotlin.adapters.AdsRcAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.act.FilterActivity
+import ru.gamebreaker.tabladeanuncioskotlin.adapters.AdsRcAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogHelper
-import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.MyLogConst
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.utils.AppMainState
 import ru.gamebreaker.tabladeanuncioskotlin.utils.BillingManager
 import ru.gamebreaker.tabladeanuncioskotlin.utils.FilterManager
 import ru.gamebreaker.tabladeanuncioskotlin.viewmodel.FirebaseViewModel
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, AdsRcAdapter.Listener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    AdsRcAdapter.Listener {
     private lateinit var tvAccount: TextView
     private lateinit var imAccount: ImageView
-    private lateinit var binding :ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
     val mAuth = Firebase.auth
     val adapter = AdsRcAdapter(this)
-    lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
     lateinit var filterLauncher: ActivityResultLauncher<Intent>
     private val firebaseViewModel: FirebaseViewModel by viewModels()
     private var clearUpdate: Boolean = true
@@ -71,8 +67,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         pref = getSharedPreferences(BillingManager.MAIN_PREF, MODE_PRIVATE)
         isPremiumUser = pref?.getBoolean(BillingManager.REMOVE_ADS_PREF, false)!!
         //isPremiumUser = true //убрать, это тест Премиум пользователя
-        if(!isPremiumUser){
-                (application as AppMainState).showAdIfAvailable(this){
+        if (!isPremiumUser) {
+            (application as AppMainState).showAdIfAvailable(this) {
             }
             initAds()
         } else {
@@ -123,56 +119,62 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bManager?.closeConnection()
     }
 
-    private fun initAds(){
+    private fun initAds() {
         MobileAds.initialize(this)
         val adRequest = AdRequest.Builder().build()
         binding.mainContent.adView2.loadAd(adRequest)
     }
 
-    private fun onActivityResultFilter(){
-        filterLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            if (it.resultCode == RESULT_OK){
-                filter = it.data?.getStringExtra(FilterActivity.FILTER_KEY)!!
-                //Log.d("MyLog", "Filter: $filter")
-                //Log.d("MyLog", "getFilter: ${FilterManager.getFilter(filter!!)}")
-                filterDb = FilterManager.getFilter(filter!!)
-            } else if (it.resultCode == RESULT_CANCELED){
-                filterDb = ""
-                filter = "empty"
+    private fun onActivityResultFilter() {
+        filterLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                if (it.resultCode == RESULT_OK) {
+                    filter = it.data?.getStringExtra(FilterActivity.FILTER_KEY)!!
+                    filterDb = FilterManager.getFilter(filter!!)
+                } else if (it.resultCode == RESULT_CANCELED) {
+                    filterDb = ""
+                    filter = "empty"
+                }
             }
-        }
     }
 
-    private fun initViewModel(){
-        firebaseViewModel.liveAdsData.observe(this, {
+    private fun initViewModel() {
+        firebaseViewModel.liveAdsData.observe(this) {
             val list = getAdsByCategory(it)
-            if (!clearUpdate){
+            if (!clearUpdate) {
                 adapter.updateAdapter(list)
             } else {
                 adapter.updateAdapterWithClear(list)
             }
-            binding.mainContent.tvEmpty.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.GONE
-        })
+            binding.mainContent.tvEmpty.visibility =
+                if (adapter.itemCount == 0) View.VISIBLE else View.GONE
+        }
     }
 
-    private fun getAdsByCategory(list: ArrayList<Ad>): ArrayList<Ad>{
+    private fun getAdsByCategory(list: ArrayList<Ad>): ArrayList<Ad> {
         val tempList = ArrayList<Ad>()
         tempList.addAll(list)
-        if (currentCategory != getString(R.string.def)){
+        if (currentCategory != getString(R.string.def)) {
             tempList.clear()
             list.forEach {
-                if (currentCategory == it.category)tempList.add(it)
+                if (currentCategory == it.category) tempList.add(it)
             }
         }
         tempList.reverse()
         return tempList
     }
 
-    private fun init(){
+    private fun init() {
         currentCategory = getString(R.string.def)
         setSupportActionBar(binding.mainContent.toolbar) //указываем какой тулбар используется в активити (важно указать в начале)
         navViewSettings()
-        val toggle = ActionBarDrawerToggle(this, binding.drawerLayout, binding.mainContent.toolbar, R.string.open, R.string.close)
+        val toggle = ActionBarDrawerToggle(
+            this,
+            binding.drawerLayout,
+            binding.mainContent.toolbar,
+            R.string.open,
+            R.string.close
+        )
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         binding.navView.setNavigationItemSelectedListener(this)
@@ -181,12 +183,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    private fun bottomMenuOnClick() = with(binding){
+    private fun bottomMenuOnClick() = with(binding) {
         mainContent.botNavView.setOnNavigationItemSelectedListener { item ->
             clearUpdate = true
-            when(item.itemId){
+            when (item.itemId) {
                 R.id.id_new_ad -> {
-                    val i = Intent(this@MainActivity, EditAdsAct::class.java) //передаём контекст на котором находимся и активити на которое хотим перейти
+                    val i = Intent(
+                        this@MainActivity,
+                        EditAdsAct::class.java
+                    ) //передаём контекст на котором находимся и активити на которое хотим перейти
                     startActivity(i) //запускаем интент и новое активити
                 }
                 R.id.id_my_ads -> {
@@ -208,7 +213,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         binding.apply {
             mainContent.rcView.layoutManager = LinearLayoutManager(this@MainActivity)
             mainContent.rcView.adapter = adapter
@@ -219,60 +224,60 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         clearUpdate = true
         val length = Toast.LENGTH_SHORT
         val textAddToast = getString(R.string.textAddToast)
-        when(item.itemId){
-            R.id.id_my_ads ->{
+        when (item.itemId) {
+            R.id.id_my_ads -> {
                 firebaseViewModel.loadMyAds()
                 mainContent.toolbar.title = getString(R.string.ad_my_ads)
             }
-            R.id.all_ads ->{
+            R.id.all_ads -> {
                 currentCategory = getString(R.string.def)
                 filterDb?.let { firebaseViewModel.loadAllAdsFirstPage(it) }
                 mainContent.toolbar.title = getString(R.string.def)
             }
-            R.id.id_heroes ->{
+            R.id.id_heroes -> {
                 getAdsFromCat(getString(R.string.ad_heroes))
                 mainContent.toolbar.title = getString(R.string.ad_heroes)
             }
-            R.id.id_dungeons ->{
+            R.id.id_dungeons -> {
                 getAdsFromCat(getString(R.string.ad_dungeons))
                 mainContent.toolbar.title = getString(R.string.ad_dungeons)
             }
-            R.id.id_faction_war ->{
+            R.id.id_faction_war -> {
                 getAdsFromCat(getString(R.string.ad_faction_war))
                 mainContent.toolbar.title = getString(R.string.ad_faction_war)
             }
-            R.id.id_arena ->{
+            R.id.id_arena -> {
                 getAdsFromCat(getString(R.string.ad_arena))
                 mainContent.toolbar.title = getString(R.string.ad_arena)
             }
-            R.id.id_cb ->{
+            R.id.id_cb -> {
                 getAdsFromCat(getString(R.string.ad_cb))
                 mainContent.toolbar.title = getString(R.string.ad_cb)
             }
-            R.id.id_tower ->{
+            R.id.id_tower -> {
                 getAdsFromCat(getString(R.string.ad_tower))
                 mainContent.toolbar.title = getString(R.string.ad_tower)
             }
-            R.id.id_lf_clan ->{
+            R.id.id_lf_clan -> {
                 getAdsFromCat(getString(R.string.lf_clan))
                 mainContent.toolbar.title = getString(R.string.lf_clan)
             }
-            R.id.id_lf_members ->{
+            R.id.id_lf_members -> {
                 getAdsFromCat(getString(R.string.lf_members))
                 mainContent.toolbar.title = getString(R.string.lf_members)
             }
-            R.id.id_sign_up ->{
+            R.id.id_sign_up -> {
                 val text = textAddToast + getString(R.string.ac_sign_up)
                 Toast.makeText(this@MainActivity, text, length).show()
                 dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
             }
-            R.id.id_sign_in ->{
+            R.id.id_sign_in -> {
                 val text = textAddToast + getString(R.string.ac_sign_in)
                 Toast.makeText(this@MainActivity, text, length).show()
                 dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
             }
-            R.id.id_sign_out ->{
-                if(mAuth.currentUser?.isAnonymous == true){
+            R.id.id_sign_out -> {
+                if (mAuth.currentUser?.isAnonymous == true) {
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return true
                 }
@@ -286,7 +291,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    private fun getAdsFromCat(cat: String){
+    private fun getAdsFromCat(cat: String) {
         currentCategory = cat
         filterDb?.let { firebaseViewModel.loadAllAdsFromCat(cat, it) }
     }
@@ -295,7 +300,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (user == null) {
             dialogHelper.accHelper.signInAnonymously(object : AccountHelper.Listener {
                 override fun onComplete() {
-                    tvAccount.text = getString(R.string.the_guest) // tvAccount.setText(R.string.text) или tvAccount.text = getString(R.string.text)
+                    tvAccount.text =
+                        getString(R.string.the_guest) // tvAccount.setText(R.string.text) или tvAccount.text = getString(R.string.text)
                     imAccount.setImageResource(R.drawable.ic_account_default)
                 }
             })
@@ -305,7 +311,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else if (!user.isAnonymous) {
             tvAccount.text = user.email
             if (user.photoUrl != null) {
-            Picasso.get().load(user.photoUrl).into(imAccount)
+                Picasso.get().load(user.photoUrl).into(imAccount)
             } else {
                 imAccount.setImageResource(R.drawable.ic_account_default)
             }
@@ -328,26 +334,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     //изменение цвета текста категорий из выдвижного меню
-    private fun navViewSettings() = with(binding){
+    private fun navViewSettings() = with(binding) {
         val menu = navView.menu
         val adsCategory = menu.findItem(R.id.adsCat)
         val accCategory = menu.findItem(R.id.accCat)
         val spanAdsCat = SpannableString(adsCategory.title)
         val spanAccCat = SpannableString(accCategory.title)
-        spanAdsCat.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity, R.color.ic_main)), 0, adsCategory.title!!.length, 0)
-        spanAccCat.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity, R.color.ic_main)), 0, accCategory.title!!.length, 0)
+        spanAdsCat.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(
+                    this@MainActivity,
+                    R.color.ic_main
+                )
+            ), 0, adsCategory.title!!.length, 0
+        )
+        spanAccCat.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(
+                    this@MainActivity,
+                    R.color.ic_main
+                )
+            ), 0, accCategory.title!!.length, 0
+        )
         adsCategory.title = spanAdsCat
         accCategory.title = spanAccCat
     }
 
-    private fun scrollListener() = with(binding.mainContent){
-        rcView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+    private fun scrollListener() = with(binding.mainContent) {
+        rcView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recView, newState)
-                if (!recView.canScrollVertically(SCROLL_DOWN) && newState == RecyclerView.SCROLL_STATE_IDLE){
+                if (!recView.canScrollVertically(SCROLL_DOWN) && newState == RecyclerView.SCROLL_STATE_IDLE) {
                     clearUpdate = false
                     val adsList = firebaseViewModel.liveAdsData.value!!
-                    if (adsList.isNotEmpty()){
+                    if (adsList.isNotEmpty()) {
                         getAdsFromCat(adsList)
                     }
                 }
@@ -361,7 +381,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 filterDb?.let { it1 -> firebaseViewModel.loadAllAdsNextPage(it.time, it1) }
             } else {
                 filterDb?.let { it1 ->
-                    firebaseViewModel.loadAllAdsFromCatNextPage(it.category!!, it.time,
+                    firebaseViewModel.loadAllAdsFromCatNextPage(
+                        it.category!!, it.time,
                         it1
                     )
                 }
@@ -369,7 +390,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    companion object{
+    companion object {
         const val EDIT_STATE = "edit_state"
         const val ADS_DATA = "ads_data"
         const val SCROLL_DOWN = 1
