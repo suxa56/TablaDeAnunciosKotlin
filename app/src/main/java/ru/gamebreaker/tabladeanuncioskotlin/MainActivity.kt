@@ -352,8 +352,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val accCategory = menu.findItem(R.id.accCat)
         val spanAdsCat = SpannableString(adsCategory.title)
         val spanAccCat = SpannableString(accCategory.title)
-        spanAdsCat.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity, R.color.ic_main)), 0, adsCategory.title.length, 0)
-        spanAccCat.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity, R.color.ic_main)), 0, accCategory.title.length, 0)
+        spanAdsCat.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity, R.color.ic_main)), 0, adsCategory.title!!.length, 0)
+        spanAccCat.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity, R.color.ic_main)), 0, accCategory.title!!.length, 0)
         adsCategory.title = spanAdsCat
         accCategory.title = spanAccCat
     }
