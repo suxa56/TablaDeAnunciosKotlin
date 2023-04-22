@@ -23,7 +23,6 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.squareup.picasso.Picasso
 import ru.gamebreaker.tabladeanuncioskotlin.accaunthelper.AccountHelper
 import ru.gamebreaker.tabladeanuncioskotlin.act.DescriptionActivity
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
@@ -283,24 +282,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun uiUpdate(user: FirebaseUser?) {
+        imAccount.setImageResource(R.drawable.ic_account_default)
         if (user == null) {
             dialogHelper.accHelper.signInAnonymously(object : AccountHelper.Listener {
                 override fun onComplete() {
-                    tvAccount.text =
-                        getString(R.string.the_guest) // tvAccount.setText(R.string.text) или tvAccount.text = getString(R.string.text)
-                    imAccount.setImageResource(R.drawable.ic_account_default)
+                    tvAccount.text = getString(R.string.the_guest)
                 }
             })
-        } else if (user.isAnonymous) {
-            tvAccount.text = getString(R.string.the_guest)
-            imAccount.setImageResource(R.drawable.ic_account_default)
         } else if (!user.isAnonymous) {
             tvAccount.text = user.email
-            if (user.photoUrl != null) {
-                Picasso.get().load(user.photoUrl).into(imAccount)
-            } else {
-                imAccount.setImageResource(R.drawable.ic_account_default)
-            }
+            binding.navView.menu.findItem(R.id.id_my_ads).isVisible = true
+            binding.navView.menu.findItem(R.id.id_sign_in).isVisible = false
+            binding.navView.menu.findItem(R.id.id_sign_up).isVisible = false
+            binding.navView.menu.findItem(R.id.id_sign_out).isVisible = true
+        } else {
+            tvAccount.text = getString(R.string.the_guest)
+            binding.navView.menu.findItem(R.id.id_my_ads).isVisible = false
+            binding.navView.menu.findItem(R.id.id_sign_in).isVisible = true
+            binding.navView.menu.findItem(R.id.id_sign_up).isVisible = true
+            binding.navView.menu.findItem(R.id.id_sign_out).isVisible = false
         }
     }
 
