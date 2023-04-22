@@ -66,14 +66,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(view)
         pref = getSharedPreferences(BillingManager.MAIN_PREF, MODE_PRIVATE)
         isPremiumUser = pref?.getBoolean(BillingManager.REMOVE_ADS_PREF, false)!!
-        //isPremiumUser = true //убрать, это тест Премиум пользователя
-        if (!isPremiumUser) {
-            (application as AppMainState).showAdIfAvailable(this) {
-            }
-            initAds()
-        } else {
-            binding.mainContent.adView2.visibility = View.GONE
-        }
         init()
         initRecyclerView()
         initViewModel()
