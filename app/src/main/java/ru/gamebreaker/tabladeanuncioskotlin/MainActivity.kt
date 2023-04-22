@@ -20,8 +20,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -36,7 +34,6 @@ import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogHelper
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
-import ru.gamebreaker.tabladeanuncioskotlin.utils.AppMainState
 import ru.gamebreaker.tabladeanuncioskotlin.utils.BillingManager
 import ru.gamebreaker.tabladeanuncioskotlin.utils.FilterManager
 import ru.gamebreaker.tabladeanuncioskotlin.viewmodel.FirebaseViewModel
@@ -55,8 +52,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var currentCategory: String? = null
     private var filter: String? = "empty"
     private var filterDb: String? = ""
-    private var pref: SharedPreferences? = null
-    private var isPremiumUser = false
     private var bManager: BillingManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,8 +59,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        pref = getSharedPreferences(BillingManager.MAIN_PREF, MODE_PRIVATE)
-        isPremiumUser = pref?.getBoolean(BillingManager.REMOVE_ADS_PREF, false)!!
         init()
         initRecyclerView()
         initViewModel()
@@ -96,25 +89,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onPause() {
         super.onPause()
-        binding.mainContent.adView2.pause()
     }
 
     override fun onResume() {
         super.onResume()
         binding.mainContent.botNavView.selectedItemId = R.id.id_home
-        binding.mainContent.adView2.resume()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.mainContent.adView2.destroy()
         bManager?.closeConnection()
-    }
-
-    private fun initAds() {
-        MobileAds.initialize(this)
-        val adRequest = AdRequest.Builder().build()
-        binding.mainContent.adView2.loadAd(adRequest)
     }
 
     private fun onActivityResultFilter() {
