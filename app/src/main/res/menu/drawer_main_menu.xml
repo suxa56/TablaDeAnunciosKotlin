@@ -73,10 +73,6 @@
 
         <menu>
             <item
-                android:title="@string/remove_ads"
-                android:icon="@drawable/ic_remove_ads"
-                android:id="@+id/remove_ads"/>
-            <item
                 android:title="@string/ac_sign_up"
                 android:icon="@drawable/ic_reg"
                 android:id="@+id/id_sign_up"/>

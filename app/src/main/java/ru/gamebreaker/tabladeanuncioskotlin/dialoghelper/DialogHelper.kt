@@ -24,10 +24,6 @@ class DialogHelper(val act: MainActivity) {
         rootDialogElement.btForgetP.setOnClickListener {
             setOnClickResetPassword(rootDialogElement, dialog)
         }
-        rootDialogElement.btGoogleSignIn.setOnClickListener {
-            accHelper.signInWithGoogle()
-            dialog.dismiss()
-        }
         dialog.show()
     }
 
@@ -44,7 +40,6 @@ class DialogHelper(val act: MainActivity) {
             rootDialogElement.tvDialogMessage.visibility = View.VISIBLE
             rootDialogElement.edSignPassword.visibility = View.GONE
             rootDialogElement.btSignUpIn.visibility = View.GONE
-            rootDialogElement.btGoogleSignIn.visibility = View.GONE
         }
     }
 

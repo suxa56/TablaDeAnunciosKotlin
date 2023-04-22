@@ -129,22 +129,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.mainContent.adView2.loadAd(adRequest)
     }
 
-    private fun onActivityResult() {
-        googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                if (account != null){
-                    Log.d(MyLogConst.MY_LOG, MyLogConst.API_ERROR)
-                    dialogHelper.accHelper.signInFirebaseWithGoogle(account.idToken!!)
-                }
-            }catch (e:ApiException){
-                Log.d(MyLogConst.MY_LOG, MyLogConst.API_ERROR + "${e.message}")
-                Toast.makeText(this,MyLogConst.API_ERROR + " : ${e.message}", Toast.LENGTH_LONG).show()
-            }
-        }
-    }
-
     private fun onActivityResultFilter(){
         filterLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             if (it.resultCode == RESULT_OK){
@@ -187,7 +171,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun init(){
         currentCategory = getString(R.string.def)
         setSupportActionBar(binding.mainContent.toolbar) //указываем какой тулбар используется в активити (важно указать в начале)
-        onActivityResult()
         navViewSettings()
         val toggle = ActionBarDrawerToggle(this, binding.drawerLayout, binding.mainContent.toolbar, R.string.open, R.string.close)
         binding.drawerLayout.addDrawerListener(toggle)
@@ -278,10 +261,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 getAdsFromCat(getString(R.string.lf_members))
                 mainContent.toolbar.title = getString(R.string.lf_members)
             }
-            R.id.remove_ads ->{
-                bManager = BillingManager(this@MainActivity)
-                bManager?.startConnection()
-            }
             R.id.id_sign_up ->{
                 val text = textAddToast + getString(R.string.ac_sign_up)
                 Toast.makeText(this@MainActivity, text, length).show()
@@ -301,7 +280,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(this@MainActivity, text, length).show()
                 uiUpdate(null)
                 mAuth.signOut()
-                dialogHelper.accHelper.signOutGoogle()
             }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
