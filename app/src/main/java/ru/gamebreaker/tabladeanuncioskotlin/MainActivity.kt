@@ -280,6 +280,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             dialogHelper.accHelper.signInAnonymously(object : AccountHelper.Listener {
                 override fun onComplete() {
                     tvAccount.text = getString(R.string.the_guest)
+                    binding.navView.menu.findItem(R.id.id_my_ads).isVisible = false
+                    binding.navView.menu.findItem(R.id.id_sign_in).isVisible = true
+                    binding.navView.menu.findItem(R.id.id_sign_up).isVisible = true
+                    binding.navView.menu.findItem(R.id.id_sign_out).isVisible = false
                 }
             })
         } else if (!user.isAnonymous) {
