@@ -32,7 +32,6 @@ import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogHelper
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
-import ru.gamebreaker.tabladeanuncioskotlin.utils.BillingManager
 import ru.gamebreaker.tabladeanuncioskotlin.utils.FilterManager
 import ru.gamebreaker.tabladeanuncioskotlin.viewmodel.FirebaseViewModel
 
@@ -44,13 +43,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val dialogHelper = DialogHelper(this)
     val mAuth = Firebase.auth
     val adapter = AdsRcAdapter(this)
-    lateinit var filterLauncher: ActivityResultLauncher<Intent>
+    private lateinit var filterLauncher: ActivityResultLauncher<Intent>
     private val firebaseViewModel: FirebaseViewModel by viewModels()
     private var clearUpdate: Boolean = true
     private var currentCategory: String? = null
     private var filter: String? = "empty"
     private var filterDb: String? = ""
-    private var bManager: BillingManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,11 +86,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onResume() {
         super.onResume()
         binding.mainContent.botNavView.selectedItemId = R.id.id_home
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        bManager?.closeConnection()
     }
 
     private fun onActivityResultFilter() {

@@ -13,11 +13,17 @@ import ru.gamebreaker.tabladeanuncioskotlin.utils.ImageManager
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ItemTouchMoveCallBack
 
-class SelectImageRvAdapter(val adapterCallBack : AdapterCallBack) : RecyclerView.Adapter<SelectImageRvAdapter.ImageHolder>(), ItemTouchMoveCallBack.ItemTouchAdapter {
+class SelectImageRvAdapter(val adapterCallBack: AdapterCallBack) :
+    RecyclerView.Adapter<SelectImageRvAdapter.ImageHolder>(),
+    ItemTouchMoveCallBack.ItemTouchAdapter {
     val mainArray = ArrayList<Bitmap>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
-        val viewBinding = SelectImageFragmentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val viewBinding = SelectImageFragmentItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return ImageHolder(viewBinding, parent.context, this)
     }
 
@@ -44,10 +50,11 @@ class SelectImageRvAdapter(val adapterCallBack : AdapterCallBack) : RecyclerView
     }
 
     class ImageHolder(
-        private val viewBinding : SelectImageFragmentItemBinding, val context : Context,
-        val adapter : SelectImageRvAdapter) : RecyclerView.ViewHolder(viewBinding.root) {
+        private val viewBinding: SelectImageFragmentItemBinding, val context: Context,
+        val adapter: SelectImageRvAdapter
+    ) : RecyclerView.ViewHolder(viewBinding.root) {
 
-        fun setData(bitmap : Bitmap) {
+        fun setData(bitmap: Bitmap) {
 
             viewBinding.imEditImage.setOnClickListener {
                 ImagePicker.getSingleImage(context as EditAdsAct)
@@ -63,14 +70,15 @@ class SelectImageRvAdapter(val adapterCallBack : AdapterCallBack) : RecyclerView
 
             }
 
-            viewBinding.tvTitle.text = context.resources.getStringArray(R.array.title_image_array)[adapterPosition]
+            viewBinding.tvTitle.text =
+                context.resources.getStringArray(R.array.title_image_array)[adapterPosition]
             ImageManager.chooseScaleType(viewBinding.imageContent, bitmap)
             viewBinding.imageContent.setImageBitmap(bitmap)
 
         }
     }
 
-    fun updateAdapter(newList:List<Bitmap>, needClear : Boolean){
+    fun updateAdapter(newList: List<Bitmap>, needClear: Boolean) {
         if (needClear) mainArray.clear()
         mainArray.addAll(newList)
         notifyDataSetChanged()

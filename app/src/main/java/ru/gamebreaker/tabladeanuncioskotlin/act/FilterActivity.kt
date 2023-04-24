@@ -1,17 +1,15 @@
 package ru.gamebreaker.tabladeanuncioskotlin.act
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityFilterBinding
 import ru.gamebreaker.tabladeanuncioskotlin.dialogs.DialogSpinnerHelper
 import ru.gamebreaker.tabladeanuncioskotlin.utils.CityHelper
-import java.lang.StringBuilder
 
 class FilterActivity : AppCompatActivity() {
     lateinit var binding: ActivityFilterBinding
@@ -34,9 +32,9 @@ class FilterActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun getFilter() = with(binding){
+    private fun getFilter() = with(binding) {
         val filter = intent.getStringExtra(FILTER_KEY)
-        if (filter != null && filter != "empty"){
+        if (filter != null && filter != "empty") {
             val filterArray = filter.split("_")
             if (filterArray[0] != "empty") spFractionValue.text = filterArray[0]
             if (filterArray[1] != "empty") spHeroNameValue.text = filterArray[1]
@@ -46,30 +44,34 @@ class FilterActivity : AppCompatActivity() {
     }
 
     //OnClicks
-    private fun onClickSelectFraction() = with(binding){
+    private fun onClickSelectFraction() = with(binding) {
         spFractionValue.setOnClickListener {
             val listCountry = CityHelper.getAllCountries(this@FilterActivity)
             dialog.showSpinnerDialog(this@FilterActivity, listCountry, spFractionValue)
-            if(spHeroNameValue.text.toString() != getString(R.string.select_hero_name)){
+            if (spHeroNameValue.text.toString() != getString(R.string.select_hero_name)) {
                 spHeroNameValue.text = getString(R.string.select_hero_name)
             }
         }
     }
 
-    private fun onClickSelectHeroName() = with(binding){
+    private fun onClickSelectHeroName() = with(binding) {
         spHeroNameValue.setOnClickListener {
             val selectedCountry = spFractionValue.text.toString()
-            if (selectedCountry != getString(R.string.select_fraction)){
-                val listCity = CityHelper.getAllCities(selectedCountry,this@FilterActivity)
+            if (selectedCountry != getString(R.string.select_fraction)) {
+                val listCity = CityHelper.getAllCities(selectedCountry, this@FilterActivity)
                 dialog.showSpinnerDialog(this@FilterActivity, listCity, spHeroNameValue)
 
-            }else{
-                Toast.makeText(this@FilterActivity, getString(R.string.warning_no_fraction_selected), Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(
+                    this@FilterActivity,
+                    getString(R.string.warning_no_fraction_selected),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
 
-    private fun onClickDone() = with(binding){
+    private fun onClickDone() = with(binding) {
         btDone.setOnClickListener {
             val i = Intent().apply {
                 putExtra(FILTER_KEY, createFilter())
@@ -80,7 +82,7 @@ class FilterActivity : AppCompatActivity() {
         }
     }
 
-    private fun onClickClear() = with(binding){
+    private fun onClickClear() = with(binding) {
         btClear.setOnClickListener {
             spFractionValue.text = getString(R.string.select_fraction)
             spHeroNameValue.text = getString(R.string.select_hero_name)
@@ -90,7 +92,7 @@ class FilterActivity : AppCompatActivity() {
         }
     }
 
-    private fun createFilter(): String = with(binding){
+    private fun createFilter(): String = with(binding) {
         val sBuilder = StringBuilder()
         val arrayTempFilter = listOf(
             spFractionValue.text,
@@ -98,8 +100,8 @@ class FilterActivity : AppCompatActivity() {
             etIndexValue.text,
             cbWithSendValue.isChecked.toString()
         )
-        for ((i, s) in arrayTempFilter.withIndex()){
-            if (s != getString(R.string.select_fraction) && s != getString(R.string.select_hero_name) && s.isNotEmpty()){
+        for ((i, s) in arrayTempFilter.withIndex()) {
+            if (s != getString(R.string.select_fraction) && s != getString(R.string.select_hero_name) && s.isNotEmpty()) {
                 sBuilder.append(s)
                 if (i != arrayTempFilter.size - 1) sBuilder.append("_")
             } else {
@@ -110,12 +112,12 @@ class FilterActivity : AppCompatActivity() {
         return sBuilder.toString()
     }
 
-    fun actionBarSettings(){
+    fun actionBarSettings() {
         val ab = supportActionBar
         ab?.setDisplayHomeAsUpEnabled(true)
     }
 
-    companion object{
+    companion object {
         const val FILTER_KEY = "filter_key"
     }
 }

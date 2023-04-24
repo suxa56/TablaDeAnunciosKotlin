@@ -6,17 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import ru.gamebreaker.tabladeanuncioskotlin.MainActivity
 import ru.gamebreaker.tabladeanuncioskotlin.R
-import ru.gamebreaker.tabladeanuncioskotlin.act.DescriptionActivity
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
-import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.AdListItemBinding
+import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AdsRcAdapter(val act: MainActivity) : RecyclerView.Adapter<AdsRcAdapter.AdHolder>() {
     val adArray = ArrayList<Ad>()
@@ -58,7 +55,11 @@ class AdsRcAdapter(val act: MainActivity) : RecyclerView.Adapter<AdsRcAdapter.Ad
         adArray.addAll(newList)
     }
 
-    class AdHolder(val binding: AdListItemBinding, val act: MainActivity, val formatter: SimpleDateFormat) :
+    class AdHolder(
+        val binding: AdListItemBinding,
+        val act: MainActivity,
+        val formatter: SimpleDateFormat
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun setData(ad: Ad) = with(binding) {
@@ -78,7 +79,7 @@ class AdsRcAdapter(val act: MainActivity) : RecyclerView.Adapter<AdsRcAdapter.Ad
             mainOnClick(ad)
         }
 
-        private fun getTimeFromMillis(timeMillis: String): String{
+        private fun getTimeFromMillis(timeMillis: String): String {
             val c = Calendar.getInstance()
             c.timeInMillis = timeMillis.toLong()
             return formatter.format(c.time)

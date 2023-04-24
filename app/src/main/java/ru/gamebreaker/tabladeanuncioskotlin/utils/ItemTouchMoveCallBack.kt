@@ -3,7 +3,7 @@ package ru.gamebreaker.tabladeanuncioskotlin.utils
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-class ItemTouchMoveCallBack(val adapter : ItemTouchAdapter) : ItemTouchHelper.Callback() {
+class ItemTouchMoveCallBack(val adapter: ItemTouchAdapter) : ItemTouchHelper.Callback() {
 
     override fun getMovementFlags(
         recyclerView: RecyclerView,
@@ -27,7 +27,7 @@ class ItemTouchMoveCallBack(val adapter : ItemTouchAdapter) : ItemTouchHelper.Ca
     }
 
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-        if (actionState != ItemTouchHelper.ACTION_STATE_IDLE)viewHolder?.itemView?.alpha = 0.5f
+        if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) viewHolder?.itemView?.alpha = 0.5f
         super.onSelectedChanged(viewHolder, actionState)
     }
 
@@ -37,8 +37,8 @@ class ItemTouchMoveCallBack(val adapter : ItemTouchAdapter) : ItemTouchHelper.Ca
         super.clearView(recyclerView, viewHolder)
     }
 
-    interface ItemTouchAdapter{
-        fun onMove(startPos : Int, targetPos : Int)
+    interface ItemTouchAdapter {
+        fun onMove(startPos: Int, targetPos: Int)
         fun onClear()
     }
 }

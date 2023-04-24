@@ -26,4 +26,4 @@ data class Ad(
     var viewsCounter: String = "0",
     var emailsCounter: String = "0",
     var callsCounter: String = "0"
-): Serializable
+) : Serializable

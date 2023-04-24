@@ -16,8 +16,6 @@ import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
 object ImagePicker {
 
     const val MAX_IMAGE_COUNT = 3
-    const val REQUEST_CODE_GET_IMAGES = 999
-    const val REQUEST_CODE_GET_SINGLE_IMAGE = 998
 
     private fun getOptions(imageCounter: Int): Options {
         val options = Options().apply {
@@ -45,9 +43,9 @@ object ImagePicker {
         edAct.addPixToActivity(R.id.place_holder, getOptions(imageCounter)) { result ->
             when (result.status) {
                 PixEventCallback.Status.SUCCESS -> {
-                        openChooseImageFragment(edAct)
-                        edAct.chooseImageFragment?.updateAdapter(result.data as ArrayList<Uri>, edAct)
-                    }
+                    openChooseImageFragment(edAct)
+                    edAct.chooseImageFragment?.updateAdapter(result.data as ArrayList<Uri>, edAct)
+                }
                 else -> {}
             }
         }
@@ -65,8 +63,9 @@ object ImagePicker {
         }
     }
 
-    private fun openChooseImageFragment(edAct: EditAdsAct){
-        edAct.supportFragmentManager.beginTransaction().replace(R.id.place_holder, edAct.chooseImageFragment!!).commit()
+    private fun openChooseImageFragment(edAct: EditAdsAct) {
+        edAct.supportFragmentManager.beginTransaction()
+            .replace(R.id.place_holder, edAct.chooseImageFragment!!).commit()
 
     }
 
@@ -77,12 +76,11 @@ object ImagePicker {
         }
     }
 
-    fun getMultiSelectImages(edAct: EditAdsAct, uris: List<Uri>) {
+    private fun getMultiSelectImages(edAct: EditAdsAct, uris: List<Uri>) {
         if (uris.size > 1 && edAct.chooseImageFragment == null) {
             edAct.openChooseItemFragment(uris as ArrayList<Uri>)
 
-        }
-        else if (uris.size == 1 && edAct.chooseImageFragment == null) {
+        } else if (uris.size == 1 && edAct.chooseImageFragment == null) {
 
             CoroutineScope(Dispatchers.Main).launch {
                 edAct.binding.pBarLoading.visibility = View.VISIBLE

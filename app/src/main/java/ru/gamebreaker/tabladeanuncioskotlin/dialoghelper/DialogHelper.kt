@@ -27,14 +27,22 @@ class DialogHelper(val act: MainActivity) {
         dialog.show()
     }
 
-    private fun setOnClickResetPassword(rootDialogElement: SignDialogBinding, dialog: AlertDialog?) {
+    private fun setOnClickResetPassword(
+        rootDialogElement: SignDialogBinding,
+        dialog: AlertDialog?
+    ) {
         if (rootDialogElement.edSignEmail.text.isNotEmpty()) {
-            act.mAuth.sendPasswordResetEmail(rootDialogElement.edSignEmail.text.toString()).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(act,R.string.email_reset_password_was_sent,Toast.LENGTH_LONG).show()
-                    dialog?.dismiss()
+            act.mAuth.sendPasswordResetEmail(rootDialogElement.edSignEmail.text.toString())
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(
+                            act,
+                            R.string.email_reset_password_was_sent,
+                            Toast.LENGTH_LONG
+                        ).show()
+                        dialog?.dismiss()
+                    }
                 }
-            }
         } else {
             rootDialogElement.btForgetP.text = act.resources.getString(R.string.sent)
             rootDialogElement.tvDialogMessage.visibility = View.VISIBLE
@@ -43,7 +51,11 @@ class DialogHelper(val act: MainActivity) {
         }
     }
 
-    private fun setOnClickSignUpIn(index: Int, rootDialogElement: SignDialogBinding, dialog: AlertDialog?) {
+    private fun setOnClickSignUpIn(
+        index: Int,
+        rootDialogElement: SignDialogBinding,
+        dialog: AlertDialog?
+    ) {
         dialog?.dismiss()
         if (index == DialogConst.SIGN_UP_STATE) {
             accHelper.signUpWithEmail(
@@ -55,7 +67,8 @@ class DialogHelper(val act: MainActivity) {
                 rootDialogElement.edSignEmail.text.toString(),
                 rootDialogElement.edSignPassword.text.toString()
             )
-            Toast.makeText(act,act.resources.getString(R.string.sign_in_done),Toast.LENGTH_LONG).show()
+            Toast.makeText(act, act.resources.getString(R.string.sign_in_done), Toast.LENGTH_LONG)
+                .show()
             dialog?.dismiss()
         }
     }

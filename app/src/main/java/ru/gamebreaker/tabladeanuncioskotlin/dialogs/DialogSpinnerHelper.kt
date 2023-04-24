@@ -3,7 +3,6 @@ package ru.gamebreaker.tabladeanuncioskotlin.dialogs
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +11,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.utils.CityHelper
 
 class DialogSpinnerHelper {
-    fun showSpinnerDialog(context: Context, list:ArrayList<String>, tvSelection:TextView){
+    fun showSpinnerDialog(context: Context, list: ArrayList<String>, tvSelection: TextView) {
         val builder = AlertDialog.Builder(context)
         val dialog = builder.create()
 
@@ -28,8 +27,12 @@ class DialogSpinnerHelper {
         dialog.show()
     }
 
-    private fun setSearchView(adapter: RcViewDialogSpinnerAdapter, list: ArrayList<String>, sv: SearchView?) {
-        sv?.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+    private fun setSearchView(
+        adapter: RcViewDialogSpinnerAdapter,
+        list: ArrayList<String>,
+        sv: SearchView?
+    ) {
+        sv?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return false
             }

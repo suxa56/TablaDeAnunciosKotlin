@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.gamebreaker.tabladeanuncioskotlin.R
 
 
-class RcViewDialogSpinnerAdapter(var tvSelection: TextView, var dialog:AlertDialog) : RecyclerView.Adapter<RcViewDialogSpinnerAdapter.SpViewHolder>() {
+class RcViewDialogSpinnerAdapter(var tvSelection: TextView, var dialog: AlertDialog) :
+    RecyclerView.Adapter<RcViewDialogSpinnerAdapter.SpViewHolder>() {
     private val mainList = ArrayList<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpViewHolder {
@@ -25,14 +26,15 @@ class RcViewDialogSpinnerAdapter(var tvSelection: TextView, var dialog:AlertDial
         return mainList.size
     }
 
-    class SpViewHolder(itemView: View, var tvSelection: TextView, var dialog: AlertDialog) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
+    class SpViewHolder(itemView: View, var tvSelection: TextView, var dialog: AlertDialog) :
+        RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private var itemText = ""
 
-        fun setData(text : String){
+        fun setData(text: String) {
             val tvSpItem = itemView.findViewById<TextView>(R.id.tvSpItem)
             tvSpItem.text = text
             itemText = text
-            itemView.setOnClickListener (this)
+            itemView.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
@@ -41,7 +43,7 @@ class RcViewDialogSpinnerAdapter(var tvSelection: TextView, var dialog:AlertDial
         }
     }
 
-    fun updateAdapter(list: ArrayList<String>){
+    fun updateAdapter(list: ArrayList<String>) {
         mainList.clear()
         mainList.addAll(list)
         notifyDataSetChanged()

@@ -1,26 +1,25 @@
 package ru.gamebreaker.tabladeanuncioskotlin.act
 
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import ru.gamebreaker.tabladeanuncioskotlin.R
-import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityEditAdsBinding
-import ru.gamebreaker.tabladeanuncioskotlin.dialogs.DialogSpinnerHelper
-import ru.gamebreaker.tabladeanuncioskotlin.utils.CityHelper
-import android.graphics.Bitmap
-import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.tasks.OnCompleteListener
 import ru.gamebreaker.tabladeanuncioskotlin.MainActivity
-import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
-import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
+import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.ImageAdapter
-import ru.gamebreaker.tabladeanuncioskotlin.dialogs.RcViewDialogSpinnerAdapter
-import ru.gamebreaker.tabladeanuncioskotlin.model.DbManager
+import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityEditAdsBinding
+import ru.gamebreaker.tabladeanuncioskotlin.dialogs.DialogSpinnerHelper
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.FragmentCloseInterface
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.ImageListFragment
+import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
+import ru.gamebreaker.tabladeanuncioskotlin.model.DbManager
+import ru.gamebreaker.tabladeanuncioskotlin.utils.CityHelper
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImageManager
+import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 import java.io.ByteArrayOutputStream
 
 
@@ -46,15 +45,15 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         imageChangeCounter()
     }
 
-    private fun checkEditState(){
+    private fun checkEditState() {
         isEditState = isEditState()
-        if (isEditState){
+        if (isEditState) {
             ad = intent.getSerializableExtra(MainActivity.ADS_DATA) as Ad
-            if(ad != null) fillViews(ad!!)
+            if (ad != null) fillViews(ad!!)
         }
     }
 
-    private fun isEditState(): Boolean{
+    private fun isEditState(): Boolean {
         return intent.getBooleanExtra(MainActivity.EDIT_STATE, false)
     }
 
@@ -72,27 +71,31 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         ImageManager.fillImageArray(ad, imageAdapter)
     }
 
-    private fun init(){
+    private fun init() {
         imageAdapter = ImageAdapter()
         binding.vpImages.adapter = imageAdapter
     }
 
     //OnClicks
-    fun onClickSelectFraction(view: View){
+    fun onClickSelectFraction(view: View) {
         val listCountry = CityHelper.getAllCountries(this)
         dialog.showSpinnerDialog(this, listCountry, binding.spFractionValue)
-        if(binding.spHeroNameValue.text.toString() != getString(R.string.select_hero_name)){
+        if (binding.spHeroNameValue.text.toString() != getString(R.string.select_hero_name)) {
             binding.spHeroNameValue.text = getString(R.string.select_hero_name)
         }
     }
 
-    fun onClickSelectHeroName(view: View){
+    fun onClickSelectHeroName(view: View) {
         val selectedCountry = binding.spFractionValue.text.toString()
-        if (selectedCountry != getString(R.string.select_fraction)){
-            val listCity = CityHelper.getAllCities(selectedCountry,this)
+        if (selectedCountry != getString(R.string.select_fraction)) {
+            val listCity = CityHelper.getAllCities(selectedCountry, this)
             dialog.showSpinnerDialog(this, listCity, binding.spHeroNameValue)
-        }else{
-            Toast.makeText(this, getString(R.string.warning_no_fraction_selected), Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(
+                this,
+                getString(R.string.warning_no_fraction_selected),
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -101,8 +104,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         dialog.showSpinnerDialog(this, listCategory, binding.spCategoryValue)
     }
 
-    fun onClickGetImages(view: View){
-        if(imageAdapter.mainArray.size == 0){
+    fun onClickGetImages(view: View) {
+        if (imageAdapter.mainArray.size == 0) {
             ImagePicker.getMultiImages(this, 3)
         } else {
             openChooseItemFragment(null)
@@ -110,8 +113,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         }
     }
 
-    fun onClickPublish(view: View){
-        if(isFieldsEmpty()){
+    fun onClickPublish(view: View) {
+        if (isFieldsEmpty()) {
             showToast("Внимание! Все поля * должны быть заполнены!")
             return
         }
@@ -120,30 +123,30 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         uploadImages()
     }
 
-    private fun isFieldsEmpty(): Boolean = with(binding){
-        return      spFractionValue.text.toString() == getString(R.string.select_fraction)
-                ||  spHeroNameValue.text.toString() == getString(R.string.select_hero_name)
-                ||  spCategoryValue.text.toString() == getString(R.string.select_category)
-                ||  etTelValue.text.isEmpty()
-                ||  etIndexValue.text.isEmpty()
-                ||  etTitleValue.text.isEmpty()
-                ||  etPriceValue.text.isEmpty()
-                ||  etDescriptionValue.text.isEmpty()
-                ||  imageAdapter.mainArray.size == 0
+    private fun isFieldsEmpty(): Boolean = with(binding) {
+        return spFractionValue.text.toString() == getString(R.string.select_fraction)
+                || spHeroNameValue.text.toString() == getString(R.string.select_hero_name)
+                || spCategoryValue.text.toString() == getString(R.string.select_category)
+                || etTelValue.text.isEmpty()
+                || etIndexValue.text.isEmpty()
+                || etTitleValue.text.isEmpty()
+                || etPriceValue.text.isEmpty()
+                || etDescriptionValue.text.isEmpty()
+                || imageAdapter.mainArray.size == 0
     }
 
-    private fun  onPublishFinish(): DbManager.FinishWorkListener{
-        return object : DbManager.FinishWorkListener{
-            override fun onFinish(isDone: Boolean) {
+    private fun onPublishFinish(): DbManager.FinishWorkListener {
+        return object : DbManager.FinishWorkListener {
+            override fun onFinish(isDome: Boolean) {
                 binding.progressLayout.visibility = View.GONE
-                if (isDone)finish()
+                if (isDome) finish()
             }
         }
     }
 
-    private fun fillAd(): Ad{
+    private fun fillAd(): Ad {
         val adTemp: Ad
-        binding.apply{
+        binding.apply {
             adTemp = Ad(
                 spFractionValue.text.toString(),
                 spHeroNameValue.text.toString(),
@@ -167,16 +170,16 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         return adTemp
     }
 
-    override fun onFragmentClose(list : ArrayList<Bitmap>) {
+    override fun onFragmentClose(list: ArrayList<Bitmap>) {
         binding.scrollViewMain.visibility = View.VISIBLE
         imageAdapter.update(list)
         chooseImageFragment = null
         updateImageCounter(binding.vpImages.currentItem)
     }
 
-    fun openChooseItemFragment(newList: ArrayList<Uri>?){
-        chooseImageFragment = ImageListFragment(this)
-        if(newList != null)chooseImageFragment?.resizeSelectedImages(newList, true, this)
+    fun openChooseItemFragment(newList: ArrayList<Uri>?) {
+        chooseImageFragment = ImageListFragment()
+        if (newList != null) chooseImageFragment?.resizeSelectedImages(newList, true, this)
         binding.scrollViewMain.visibility = View.GONE
         val fm = supportFragmentManager.beginTransaction()
         fm.replace(R.id.place_holder, chooseImageFragment!!)
@@ -212,53 +215,55 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         }
     }
 
-    private fun nextImage(uri: String){
+    private fun nextImage(uri: String) {
         setImageUriToAd(uri)
         imageIndex++
         uploadImages()
     }
 
-    private fun setImageUriToAd(uri: String){
-        when(imageIndex){
+    private fun setImageUriToAd(uri: String) {
+        when (imageIndex) {
             0 -> ad = ad?.copy(mainImage = uri)
             1 -> ad = ad?.copy(secondImage = uri)
             2 -> ad = ad?.copy(thirdImage = uri)
         }
     }
 
-    private fun getUelFromAd(): String{
+    private fun getUelFromAd(): String {
         return listOf(ad?.mainImage!!, ad?.secondImage!!, ad?.thirdImage!!)[imageIndex]
     }
 
-    private fun prepareImageByteArray(bitmap: Bitmap):ByteArray{
+    private fun prepareImageByteArray(bitmap: Bitmap): ByteArray {
         val outStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 20, outStream)
         return outStream.toByteArray()
     }
 
-    private fun uploadImage(byteArray: ByteArray, listener: OnCompleteListener<Uri>){
+    private fun uploadImage(byteArray: ByteArray, listener: OnCompleteListener<Uri>) {
         val imStorageRef = dbManager.dbStorage
             .child(dbManager.auth.uid!!)
             .child("image_${System.currentTimeMillis()}")
         val upTask = imStorageRef.putBytes(byteArray)
         upTask.continueWithTask {
-            task -> imStorageRef.downloadUrl
+            imStorageRef.downloadUrl
         }.addOnCompleteListener(listener)
     }
 
     private fun deleteImageByUrl(oldUrl: String, listener: OnCompleteListener<Void>) {
-        dbManager.dbStorage.storage.getReferenceFromUrl(oldUrl).delete().addOnCompleteListener(listener)
+        dbManager.dbStorage.storage.getReferenceFromUrl(oldUrl).delete()
+            .addOnCompleteListener(listener)
     }
-    private fun updateImage(byteArray: ByteArray, url: String, listener: OnCompleteListener<Uri>){
+
+    private fun updateImage(byteArray: ByteArray, url: String, listener: OnCompleteListener<Uri>) {
         val imStorageRef = dbManager.dbStorage.storage.getReferenceFromUrl(url)
         val upTask = imStorageRef.putBytes(byteArray)
         upTask.continueWithTask {
-                task -> imStorageRef.downloadUrl
+            imStorageRef.downloadUrl
         }.addOnCompleteListener(listener)
     }
 
-    private fun imageChangeCounter(){
-        binding.vpImages.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+    private fun imageChangeCounter() {
+        binding.vpImages.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 updateImageCounter(position)
@@ -266,8 +271,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         })
     }
 
-    private fun updateImageCounter(counter: Int){
-        var index = 1
+    private fun updateImageCounter(counter: Int) {
+        val index = 1
         val itemCount = binding.vpImages.adapter?.itemCount
         if (itemCount == 0) index == 0
         val imageCounter = "${counter + index}/$itemCount"
