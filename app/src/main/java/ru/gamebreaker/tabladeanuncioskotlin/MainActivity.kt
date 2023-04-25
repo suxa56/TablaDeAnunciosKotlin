@@ -4,14 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -26,13 +23,11 @@ import com.google.firebase.ktx.Firebase
 import ru.gamebreaker.tabladeanuncioskotlin.accaunthelper.AccountHelper
 import ru.gamebreaker.tabladeanuncioskotlin.act.DescriptionActivity
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
-import ru.gamebreaker.tabladeanuncioskotlin.act.FilterActivity
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.AdsRcAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogHelper
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
-import ru.gamebreaker.tabladeanuncioskotlin.utils.FilterManager
 import ru.gamebreaker.tabladeanuncioskotlin.viewmodel.FirebaseViewModel
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
@@ -43,11 +38,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val dialogHelper = DialogHelper(this)
     val mAuth = Firebase.auth
     val adapter = AdsRcAdapter(this)
-    private lateinit var filterLauncher: ActivityResultLauncher<Intent>
     private val firebaseViewModel: FirebaseViewModel by viewModels()
     private var clearUpdate: Boolean = true
     private var currentCategory: String? = null
-    private var filter: String? = "empty"
     private var filterDb: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,22 +53,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initViewModel()
         bottomMenuOnClick()
         scrollListener()
-        onActivityResultFilter()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.id_filter) {
-            val i = Intent(this@MainActivity, FilterActivity::class.java).apply {
-                putExtra(FilterActivity.FILTER_KEY, filter)
-            }
-            filterLauncher.launch(i)
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onStart() {
@@ -86,19 +63,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onResume() {
         super.onResume()
         binding.mainContent.botNavView.selectedItemId = R.id.id_home
-    }
-
-    private fun onActivityResultFilter() {
-        filterLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == RESULT_OK) {
-                    filter = it.data?.getStringExtra(FilterActivity.FILTER_KEY)!!
-                    filterDb = FilterManager.getFilter(filter!!)
-                } else if (it.resultCode == RESULT_CANCELED) {
-                    filterDb = ""
-                    filter = "empty"
-                }
-            }
     }
 
     private fun initViewModel() {
