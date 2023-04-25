@@ -23,6 +23,19 @@
             android:layout_margin="5dp"
             android:orientation="vertical">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_image_bg_light"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ToolbarMainStyle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:title="@string/new_ad"
+                app:titleTextColor="@color/ic_main" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardImage"
                 android:layout_width="match_parent"

@@ -119,4 +119,6 @@
     <string name="ad_work">Вакансии</string>
     <string name="ad_pet">Питомцы</string>
     <string name="ad_sport">Спорт</string>
+    <!-- other -->
+    <string name="new_ad">Новое объявление</string>
 </resources>
