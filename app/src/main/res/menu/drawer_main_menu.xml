@@ -11,35 +11,35 @@
 
             <item
                 android:id="@+id/id_heroes"
-                android:icon="@drawable/ic_menu_clan_battles"
+                android:icon="@drawable/ic_auto"
                 android:title="@string/ad_heroes" />
             <item
                 android:id="@+id/id_faction_war"
-                android:icon="@drawable/ic_menu_clan_battles"
+                android:icon="@drawable/ic_devices"
                 android:title="@string/ad_faction_war" />
             <item
                 android:id="@+id/id_arena"
-                android:icon="@drawable/ic_menu_clan_battles"
+                android:icon="@drawable/ic_child"
                 android:title="@string/ad_arena" />
             <item
                 android:id="@+id/id_dungeons"
-                android:icon="@drawable/ic_menu_dungeons"
+                android:icon="@drawable/ic_house"
                 android:title="@string/ad_dungeons" />
             <item
                 android:id="@+id/id_cb"
-                android:icon="@drawable/ic_menu_clan_battles"
+                android:icon="@drawable/ic_service"
                 android:title="@string/ad_cb" />
             <item
                 android:id="@+id/id_tower"
-                android:icon="@drawable/ic_menu_doom_tower"
+                android:icon="@drawable/ic_work"
                 android:title="@string/ad_tower" />
             <item
                 android:id="@+id/id_lf_clan"
-                android:icon="@drawable/ic_menu_doom_tower"
+                android:icon="@drawable/ic_pet"
                 android:title="@string/lf_clan" />
             <item
                 android:id="@+id/id_lf_members"
-                android:icon="@drawable/ic_menu_doom_tower"
+                android:icon="@drawable/ic_sport"
                 android:title="@string/lf_members" />
 
         </menu>
@@ -54,11 +54,11 @@
 
             <item
                 android:id="@+id/id_my_ads"
-                android:icon="@drawable/ic_menu_doom_tower"
+                android:icon="@drawable/ic_my_ads"
                 android:title="@string/ad_my_ads" />
             <item
                 android:id="@+id/all_ads"
-                android:icon="@drawable/ic_menu_clan_battles"
+                android:icon="@drawable/ic_home"
                 android:title="@string/all_ads" />
 
 

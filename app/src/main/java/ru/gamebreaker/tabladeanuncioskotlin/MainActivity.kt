@@ -320,8 +320,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun navViewSettings() = with(binding) {
         val menu = navView.menu
         val adsCategory = menu.findItem(R.id.adsCat)
+        val adsCategory2 = menu.findItem(R.id.adsCat2)
         val accCategory = menu.findItem(R.id.accCat)
         val spanAdsCat = SpannableString(adsCategory.title)
+        val spanAdsCat2 = SpannableString(adsCategory2.title)
         val spanAccCat = SpannableString(accCategory.title)
         spanAdsCat.setSpan(
             ForegroundColorSpan(
@@ -330,6 +332,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     R.color.ic_main
                 )
             ), 0, adsCategory.title!!.length, 0
+        )
+        spanAdsCat2.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(
+                    this@MainActivity,
+                    R.color.ic_main
+                )
+            ), 0, adsCategory2.title!!.length, 0
         )
         spanAccCat.setSpan(
             ForegroundColorSpan(
@@ -340,6 +350,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             ), 0, accCategory.title!!.length, 0
         )
         adsCategory.title = spanAdsCat
+        adsCategory2.title = spanAdsCat2
         accCategory.title = spanAccCat
     }
 
