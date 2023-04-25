@@ -29,6 +29,7 @@
     <string name="email_reset_email_message">Для восстановления пароля укажите ваш Email адрес</string>
     <string name="email_hint">Email</string>
     <string name="tv_email">Email:</string>
+    <string name="tv_description">О товаре:</string>
     <string name="email_enter">Введите Email (по желанию)</string>
     <string name="password_hint">Password</string>
     <string name="sent">Отправить</string>
@@ -62,20 +63,20 @@
     <string name="tv_status">Статус</string>
     <string name="tv_geared">geared</string>
     <string name="tv_tel">Телефон</string>
-    <string name="tv_tel_hint">*Номер телефона</string>
+    <string name="tv_tel_hint">Номер телефона</string>
     <string name="tv_index">Индекс</string>
     <string name="tv_index_hint">*Индекс</string>
     <string name="tv_hero_data">Данные персонажа</string>
     <string name="category">Категория</string>
-    <string name="select_category">*Выберите категорию</string>
+    <string name="select_category">Выберите категорию</string>
     <string name="tv_title">Заголовок</string>
-    <string name="ed_title">*Введите название</string>
+    <string name="ed_title">Введите название</string>
     <string name="price">Цена</string>
     <string name="tv_price">Цена:</string>
-    <string name="price_hint">*Укажите цену</string>
+    <string name="price_hint">Укажите цену</string>
     <string name="description">Описание</string>
     <string name="description_logo">Описание:</string>
-    <string name="description_hint">*Введите описание</string>
+    <string name="description_hint">Введите описание</string>
     <string name="with_send">С отправкой</string>
     <string name="publish">Опубликовать</string>
     <!-- menu_choose_image -->

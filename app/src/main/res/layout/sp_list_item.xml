@@ -19,14 +19,4 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/tvSpItemPic"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvSpItem"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvSpItem"
-        app:srcCompat="@drawable/frakciya_1000"
-        android:contentDescription="@string/faction_flag" />
 </androidx.constraintlayout.widget.ConstraintLayout>

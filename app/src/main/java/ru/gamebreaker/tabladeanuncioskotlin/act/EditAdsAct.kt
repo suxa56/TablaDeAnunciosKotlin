@@ -8,6 +8,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.app
 import ru.gamebreaker.tabladeanuncioskotlin.MainActivity
 import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.ImageAdapter
@@ -58,11 +61,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     private fun fillViews(ad: Ad) = with(binding) {
-        spFractionValue.text = ad.fraction
-        spHeroNameValue.text = ad.heroName
         etTelValue.setText(ad.tel)
-        etIndexValue.setText(ad.index)
-        cbWithSendValue.isChecked = ad.withSend.toBoolean()
         spCategoryValue.text = ad.category
         etTitleValue.setText(ad.title)
         etPriceValue.setText(ad.price)
@@ -77,28 +76,6 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     //OnClicks
-    fun onClickSelectFraction(view: View) {
-        val listCountry = CityHelper.getAllCountries(this)
-        dialog.showSpinnerDialog(this, listCountry, binding.spFractionValue)
-        if (binding.spHeroNameValue.text.toString() != getString(R.string.select_hero_name)) {
-            binding.spHeroNameValue.text = getString(R.string.select_hero_name)
-        }
-    }
-
-    fun onClickSelectHeroName(view: View) {
-        val selectedCountry = binding.spFractionValue.text.toString()
-        if (selectedCountry != getString(R.string.select_fraction)) {
-            val listCity = CityHelper.getAllCities(selectedCountry, this)
-            dialog.showSpinnerDialog(this, listCity, binding.spHeroNameValue)
-        } else {
-            Toast.makeText(
-                this,
-                getString(R.string.warning_no_fraction_selected),
-                Toast.LENGTH_LONG
-            ).show()
-        }
-    }
-
     fun onClickSelectCategory(view: View) {
         val listCategory = resources.getStringArray(R.array.category).toMutableList() as ArrayList
         dialog.showSpinnerDialog(this, listCategory, binding.spCategoryValue)
@@ -124,11 +101,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     private fun isFieldsEmpty(): Boolean = with(binding) {
-        return spFractionValue.text.toString() == getString(R.string.select_fraction)
-                || spHeroNameValue.text.toString() == getString(R.string.select_hero_name)
-                || spCategoryValue.text.toString() == getString(R.string.select_category)
+        return spCategoryValue.text.toString() == getString(R.string.select_category)
                 || etTelValue.text.isEmpty()
-                || etIndexValue.text.isEmpty()
                 || etTitleValue.text.isEmpty()
                 || etPriceValue.text.isEmpty()
                 || etDescriptionValue.text.isEmpty()
@@ -148,13 +122,13 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         val adTemp: Ad
         binding.apply {
             adTemp = Ad(
-                spFractionValue.text.toString(),
-                spHeroNameValue.text.toString(),
+                "Дворфы",
+                "Тормин",
                 etTelValue.text.toString(),
-                etMailValue.text.toString(),
-                etIndexValue.text.toString(),
-                cbWithSendValue.isChecked.toString(),
-                spCategoryValue.text.toString(),
+                Firebase.auth.currentUser!!.email,
+                "1",
+                "false",
+                setCategory(),
                 etPriceValue.text.toString(),
                 etTitleValue.text.toString(),
                 etDescriptionValue.text.toString(),
@@ -168,6 +142,23 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
             )
         }
         return adTemp
+    }
+
+    private fun setCategory(): String {
+        val dbCategory = when (binding.spCategoryValue.text.toString()) {
+            getString(R.string.ad_auto) -> R.string.ad_heroes
+            getString(R.string.ad_device) -> R.string.ad_faction_war
+            getString(R.string.ad_child) -> R.string.ad_arena
+            getString(R.string.ad_house) -> R.string.ad_dungeons
+            getString(R.string.ad_service) -> R.string.ad_cb
+            getString(R.string.ad_work) -> R.string.ad_tower
+            getString(R.string.ad_pet) -> R.string.lf_clan
+            getString(R.string.ad_sport) -> R.string.lf_members
+            else -> {
+                R.string.ad_heroes
+            }
+        }
+        return getString(dbCategory)
     }
 
     override fun onFragmentClose(list: ArrayList<Bitmap>) {

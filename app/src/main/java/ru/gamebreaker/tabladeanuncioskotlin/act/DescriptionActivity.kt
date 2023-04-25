@@ -3,9 +3,11 @@ package ru.gamebreaker.tabladeanuncioskotlin.act
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.viewpager2.widget.ViewPager2
+import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.ImageAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityDescriptionBinding
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
@@ -45,22 +47,35 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     private fun fillTextViews(ad: Ad) = with(binding) {
-
-
         tvTitle.text = ad.title
         tvDescription.text = ad.description
-        tvFractionValue.text = ad.fraction
-        tvHeroNameValue.text = ad.heroName
+        if (ad.email.isNullOrBlank()) {
+            tvEmailTitle.visibility = View.GONE
+            tvEmailValue.visibility = View.GONE
+            fbEmail.visibility = View.GONE
+        } else {
         tvEmailValue.text = ad.email
+        }
         tvTelValue.text = ad.tel
-        tvIndexValue.text = ad.index
-        checkBoxWithSendValue.text = isWithSent(ad.withSend.toBoolean())
-        tvCategoryValue.text = ad.category
+        tvCategoryValue.text = setCategory()
         tvPriceValue.text = ad.price
     }
 
-    private fun isWithSent(withSent: Boolean): String {
-        return if (withSent) "Да" else "Нет"
+    private fun setCategory(): CharSequence {
+        val category = when (ad!!.category) {
+            getString(R.string.ad_heroes) -> R.string.ad_auto
+            getString(R.string.ad_faction_war) -> R.string.ad_device
+            getString(R.string.ad_arena) -> R.string.ad_child
+            getString(R.string.ad_dungeons) -> R.string.ad_house
+            getString(R.string.ad_cb) -> R.string.ad_service
+            getString(R.string.ad_tower) -> R.string.ad_work
+            getString(R.string.lf_clan) -> R.string.ad_pet
+            getString(R.string.lf_members) -> R.string.ad_sport
+            else -> {
+                R.string.ad_auto
+            }
+        }
+        return getString(category)
     }
 
     private fun call() {

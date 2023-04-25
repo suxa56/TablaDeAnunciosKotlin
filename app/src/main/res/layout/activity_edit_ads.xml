@@ -98,30 +98,6 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tvFractionTitle"
-                        style="@style/HeadingsTextAds"
-                        android:text="@string/tv_fraction" />
-
-                    <TextView
-                        android:id="@+id/spFractionValue"
-                        style="@style/TextAds"
-                        android:onClick="onClickSelectFraction"
-                        android:text="@string/select_fraction" />
-
-                    <LinearLayout style="@style/LineEditAds" />
-
-                    <TextView
-                        android:id="@+id/tvHeroNameTitle"
-                        style="@style/HeadingsTextAds"
-                        android:text="@string/tv_hero_name" />
-
-                    <TextView
-                        android:id="@+id/spHeroNameValue"
-                        style="@style/TextAds"
-                        android:onClick="onClickSelectHeroName"
-                        android:text="@string/select_hero_name" />
-
                     <LinearLayout style="@style/LineEditAds" />
 
                     <TextView
@@ -136,43 +112,6 @@
                         android:ems="10"
                         android:hint="@string/tv_tel_hint"
                         android:inputType="phone" />
-
-                    <LinearLayout style="@style/LineEditAds" />
-
-                    <TextView
-                        android:id="@+id/tvMailTitle"
-                        style="@style/HeadingsTextAds"
-                        android:text="@string/email_hint" />
-
-                    <EditText
-                        android:id="@+id/etMailValue"
-                        style="@style/TextAds.Edit"
-                        android:autofillHints="emailAddress"
-                        android:ems="10"
-                        android:hint="@string/email_enter"
-                        android:inputType="textWebEmailAddress" />
-
-                    <LinearLayout style="@style/LineEditAds" />
-
-                    <TextView
-                        android:id="@+id/tvIndexTitle"
-                        style="@style/HeadingsTextAds"
-                        android:text="@string/tv_index" />
-
-                    <EditText
-                        android:id="@+id/etIndexValue"
-                        style="@style/TextAds.Edit"
-                        android:ems="10"
-                        android:hint="@string/tv_index_hint"
-                        android:importantForAutofill="no"
-                        android:inputType="number" />
-
-                    <LinearLayout style="@style/LineEditAds" />
-
-                    <CheckBox
-                        android:id="@+id/cbWithSendValue"
-                        style="@style/TextAds"
-                        android:text="@string/with_send" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

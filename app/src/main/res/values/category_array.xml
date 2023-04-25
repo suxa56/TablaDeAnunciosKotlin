@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="category">
-        <item>@string/ad_heroes</item>
-        <item>@string/ad_faction_war</item>
-        <item>@string/ad_arena</item>
-        <item>@string/ad_dungeons</item>
-        <item>@string/ad_cb</item>
-        <item>@string/ad_tower</item>
-        <item>@string/lf_clan</item>
-        <item>@string/lf_members</item>
+        <item>@string/ad_auto</item>
+        <item>@string/ad_device</item>
+        <item>@string/ad_child</item>
+        <item>@string/ad_house</item>
+        <item>@string/ad_service</item>
+        <item>@string/ad_work</item>
+        <item>@string/ad_pet</item>
+        <item>@string/ad_sport</item>
     </string-array>
 </resources>
