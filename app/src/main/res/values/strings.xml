@@ -109,4 +109,13 @@
     <string name="remove_ads">Убрать рекламу</string>
     <string name="all_ads">Все объявления</string>
     <string name="categories">Категории</string>
+    <!-- Custom categories -->
+    <string name="ad_auto">Автомобили</string>
+    <string name="ad_device">Девайсы</string>
+    <string name="ad_child">Детский мир</string>
+    <string name="ad_house">Недвижимость</string>
+    <string name="ad_service">Услуги</string>
+    <string name="ad_work">Вакансии</string>
+    <string name="ad_pet">Питомцы</string>
+    <string name="ad_sport">Спорт</string>
 </resources>

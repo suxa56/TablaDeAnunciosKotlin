@@ -184,7 +184,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.id_home -> {
                     currentCategory = getString(R.string.def)
                     filterDb?.let { firebaseViewModel.loadAllAdsFirstPage(it) }
-                    mainContent.toolbar.title = getString(R.string.def)
+                    mainContent.toolbar.title = getString(R.string.all_ads)
                 }
             }
             true
@@ -203,6 +203,38 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val length = Toast.LENGTH_SHORT
         val textAddToast = getString(R.string.textAddToast)
         when (item.itemId) {
+            R.id.id_auto -> {
+                getAdsFromCat(R.string.ad_auto)
+                mainContent.toolbar.title = getString(R.string.ad_auto)
+            }
+            R.id.id_device -> {
+                getAdsFromCat(R.string.ad_device)
+                mainContent.toolbar.title = getString(R.string.ad_device)
+            }
+            R.id.id_child -> {
+                getAdsFromCat(R.string.ad_child)
+                mainContent.toolbar.title = getString(R.string.ad_child)
+            }
+            R.id.id_house -> {
+                getAdsFromCat(R.string.ad_house)
+                mainContent.toolbar.title = getString(R.string.ad_house)
+            }
+            R.id.id_service -> {
+                getAdsFromCat(R.string.ad_service)
+                mainContent.toolbar.title = getString(R.string.ad_service)
+            }
+            R.id.id_work -> {
+                getAdsFromCat(R.string.ad_work)
+                mainContent.toolbar.title = getString(R.string.ad_work)
+            }
+            R.id.id_pet -> {
+                getAdsFromCat(R.string.ad_pet)
+                mainContent.toolbar.title = getString(R.string.ad_pet)
+            }
+            R.id.id_sport -> {
+                getAdsFromCat(R.string.ad_sport)
+                mainContent.toolbar.title = getString(R.string.ad_sport)
+            }
             R.id.id_my_ads -> {
                 firebaseViewModel.loadMyAds()
                 mainContent.toolbar.title = getString(R.string.ad_my_ads)
@@ -210,39 +242,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.all_ads -> {
                 currentCategory = getString(R.string.def)
                 filterDb?.let { firebaseViewModel.loadAllAdsFirstPage(it) }
-                mainContent.toolbar.title = getString(R.string.def)
-            }
-            R.id.id_heroes -> {
-                getAdsFromCat(getString(R.string.ad_heroes))
-                mainContent.toolbar.title = getString(R.string.ad_heroes)
-            }
-            R.id.id_dungeons -> {
-                getAdsFromCat(getString(R.string.ad_dungeons))
-                mainContent.toolbar.title = getString(R.string.ad_dungeons)
-            }
-            R.id.id_faction_war -> {
-                getAdsFromCat(getString(R.string.ad_faction_war))
-                mainContent.toolbar.title = getString(R.string.ad_faction_war)
-            }
-            R.id.id_arena -> {
-                getAdsFromCat(getString(R.string.ad_arena))
-                mainContent.toolbar.title = getString(R.string.ad_arena)
-            }
-            R.id.id_cb -> {
-                getAdsFromCat(getString(R.string.ad_cb))
-                mainContent.toolbar.title = getString(R.string.ad_cb)
-            }
-            R.id.id_tower -> {
-                getAdsFromCat(getString(R.string.ad_tower))
-                mainContent.toolbar.title = getString(R.string.ad_tower)
-            }
-            R.id.id_lf_clan -> {
-                getAdsFromCat(getString(R.string.lf_clan))
-                mainContent.toolbar.title = getString(R.string.lf_clan)
-            }
-            R.id.id_lf_members -> {
-                getAdsFromCat(getString(R.string.lf_members))
-                mainContent.toolbar.title = getString(R.string.lf_members)
+                mainContent.toolbar.title = getString(R.string.all_ads)
             }
             R.id.id_sign_up -> {
                 val text = textAddToast + getString(R.string.ac_sign_up)
@@ -269,9 +269,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    private fun getAdsFromCat(cat: String) {
-        currentCategory = cat
-        filterDb?.let { firebaseViewModel.loadAllAdsFromCat(cat, it) }
+    private fun getAdsFromCat(cat: Int) {
+        val catForDB: Int = when (cat) {
+            R.string.ad_auto -> R.string.ad_heroes
+            R.string.ad_device -> R.string.ad_faction_war
+            R.string.ad_child -> R.string.ad_arena
+            R.string.ad_house -> R.string.ad_dungeons
+            R.string.ad_service -> R.string.ad_cb
+            R.string.ad_work -> R.string.ad_tower
+            R.string.ad_pet -> R.string.lf_clan
+            R.string.ad_sport -> R.string.lf_members
+            else -> {
+                R.string.def
+            }
+        }
+        currentCategory = getString(catForDB)
+        filterDb?.let { firebaseViewModel.loadAllAdsFromCat(getString(catForDB), it) }
     }
 
     fun uiUpdate(user: FirebaseUser?) {

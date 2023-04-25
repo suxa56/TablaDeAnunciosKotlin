@@ -10,37 +10,37 @@
         <menu>
 
             <item
-                android:id="@+id/id_heroes"
+                android:id="@+id/id_auto"
                 android:icon="@drawable/ic_auto"
-                android:title="@string/ad_heroes" />
+                android:title="@string/ad_auto" />
             <item
-                android:id="@+id/id_faction_war"
+                android:id="@+id/id_device"
                 android:icon="@drawable/ic_devices"
-                android:title="@string/ad_faction_war" />
+                android:title="@string/ad_device" />
             <item
-                android:id="@+id/id_arena"
+                android:id="@+id/id_child"
                 android:icon="@drawable/ic_child"
-                android:title="@string/ad_arena" />
+                android:title="@string/ad_child" />
             <item
-                android:id="@+id/id_dungeons"
+                android:id="@+id/id_house"
                 android:icon="@drawable/ic_house"
-                android:title="@string/ad_dungeons" />
+                android:title="@string/ad_house" />
             <item
-                android:id="@+id/id_cb"
+                android:id="@+id/id_service"
                 android:icon="@drawable/ic_service"
-                android:title="@string/ad_cb" />
+                android:title="@string/ad_service" />
             <item
-                android:id="@+id/id_tower"
+                android:id="@+id/id_work"
                 android:icon="@drawable/ic_work"
-                android:title="@string/ad_tower" />
+                android:title="@string/ad_work" />
             <item
-                android:id="@+id/id_lf_clan"
+                android:id="@+id/id_pet"
                 android:icon="@drawable/ic_pet"
-                android:title="@string/lf_clan" />
+                android:title="@string/ad_pet" />
             <item
-                android:id="@+id/id_lf_members"
+                android:id="@+id/id_sport"
                 android:icon="@drawable/ic_sport"
-                android:title="@string/lf_members" />
+                android:title="@string/ad_sport" />
 
         </menu>
 
