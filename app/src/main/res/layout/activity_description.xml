@@ -104,7 +104,7 @@
                     <TextView
                         android:id="@+id/tvTelTitle"
                         style="@style/TextColumnName"
-                        android:text="@string/tv_tel" />
+                        android:text="@string/tel" />
 
                     <TextView
                         android:id="@+id/tvTelValue"
@@ -120,7 +120,7 @@
                     <TextView
                         android:id="@+id/tvCategoryTitle"
                         style="@style/TextColumnName"
-                        android:text="@string/category" />
+                        android:text="@string/cat" />
 
                     <TextView
                         android:id="@+id/tvCategoryValue"
