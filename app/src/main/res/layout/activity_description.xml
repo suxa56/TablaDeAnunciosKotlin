@@ -23,20 +23,18 @@
                 android:background="@drawable/edit_image_bg"
                 android:padding="4dp">
 
-                <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="0dp"
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_image_bg_light"
-                    android:gravity="center"
-                    android:padding="4dp"
-                    android:text="@string/tv_title"
-                    android:textColor="@color/ic_main"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="@style/ToolbarMainStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:title="@string/ad_cat1"
+                    app:titleTextColor="@color/ic_main" />
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPager"
@@ -46,7 +44,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
                 <TextView
                     android:id="@+id/tvImageCounter"

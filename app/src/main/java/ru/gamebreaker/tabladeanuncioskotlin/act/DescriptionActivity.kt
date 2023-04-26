@@ -5,8 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.net.toUri
 import androidx.viewpager2.widget.ViewPager2
+import ru.gamebreaker.tabladeanuncioskotlin.MainActivity
 import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.ImageAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityDescriptionBinding
@@ -17,23 +19,37 @@ class DescriptionActivity : AppCompatActivity() {
     lateinit var binding: ActivityDescriptionBinding
     lateinit var adapter: ImageAdapter
     private var ad: Ad? = null
+    private var toolbar: Toolbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDescriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
+        configureToolbar()
         binding.fbTel.setOnClickListener { call() }
         binding.fbEmail.setOnClickListener { sendEmail() }
     }
 
     private fun init() {
+        toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
         adapter = ImageAdapter()
         binding.apply {
             viewPager.adapter = adapter
         }
         getIntentFromMainAct()
         imageChangeCounter()
+    }
+
+    private fun configureToolbar() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = ad?.title
+        toolbar?.setNavigationOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun getIntentFromMainAct() {
@@ -47,14 +63,13 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     private fun fillTextViews(ad: Ad) = with(binding) {
-        tvTitle.text = ad.title
         tvDescription.text = ad.description
         if (ad.email.isNullOrBlank()) {
             tvEmailTitle.visibility = View.GONE
             tvEmailValue.visibility = View.GONE
             fbEmail.visibility = View.GONE
         } else {
-        tvEmailValue.text = ad.email
+            tvEmailValue.text = ad.email
         }
         tvTelValue.text = ad.tel
         tvCategoryValue.text = setCategory()
