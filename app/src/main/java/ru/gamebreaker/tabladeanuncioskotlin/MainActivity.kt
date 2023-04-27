@@ -165,7 +165,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean = with(binding) {
         clearUpdate = true
         val length = Toast.LENGTH_SHORT
-        val textAddToast = getString(R.string.textAddToast)
         when (item.itemId) {
             R.id.id_auto -> {
                 getAdsFromCat(R.string.ad_auto)
@@ -209,13 +208,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 mainContent.toolbar.title = getString(R.string.all_ads)
             }
             R.id.id_sign_up -> {
-                val text = textAddToast + getString(R.string.ac_sign_up)
-                Toast.makeText(this@MainActivity, text, length).show()
                 dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
             }
             R.id.id_sign_in -> {
-                val text = textAddToast + getString(R.string.ac_sign_in)
-                Toast.makeText(this@MainActivity, text, length).show()
                 dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
             }
             R.id.id_sign_out -> {

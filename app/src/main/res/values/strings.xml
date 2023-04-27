@@ -1,9 +1,6 @@
 <resources>
-    <!-- ad_id -->
-    <string name="ad_id_test_banner">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="ad_id_test_interstitial">ca-app-pub-3940256099942544/1033173712</string>
     <!-- App name Strings -->
-    <string name="app_name">Game Helper for: Raid SL</string>
+    <string name="app_name">TorgUz</string>
     <!-- Menu Drawer Strings -->
     <string name="ad_cat1">Объявления</string>
     <string name="def">Разное</string>
@@ -18,19 +15,14 @@
     <string name="ac_sign_up">Регистрация</string>
     <string name="ac_sign_in">Вход</string>
     <string name="ac_sign_out">Выход</string>
-    <string name="not_reg">Войдите или зарегистрируйтесь!</string>
     <!-- Toolbar Strings -->
     <string name="open">Open</string>
     <string name="close">Close</string>
-    <!-- Toast Strings -->
-    <string name="textAddToast">"Нажата кнопка: "</string>
     <!-- Sign dialog -->
     <string name="email_reset_password_was_sent">Инструкции для сброса пароля были отправлены на указанный Email</string>
     <string name="email_reset_email_message">Для восстановления пароля укажите ваш Email адрес</string>
     <string name="email_hint">Email</string>
     <string name="tv_email">Email:</string>
-    <string name="tv_description">О товаре:</string>
-    <string name="email_enter">Введите Email (по желанию)</string>
     <string name="password_hint">Password</string>
     <string name="sent">Отправить</string>
     <string name="sign_up">Регистрация</string>
@@ -38,7 +30,6 @@
     <string name="sign_up_action">Зарегистрироваться</string>
     <string name="sign_in_action">Войти</string>
     <string name="forget_password">Забыли пароль?</string>
-    <string name="sign_up_error">Неудалось зарегистрироваться</string>
     <string name="sign_in_error">Неудалось войти</string>
     <string name="send_verification_email_error">Неудалось отправить email для подтверждения</string>
     <string name="send_verification_email_done">На вашу почту была отправлена ссылка для подтверждения вашего аккаунта, пожалуйста подтвердите ваш аккаунт!</string>
@@ -47,27 +38,10 @@
     <!-- Toast -->
     <string name="link_done">Аккаунты успешно объединены</string>
     <string name="enter_to_g">У вас уже есть аккаунт с данным адресом. Для объединения Email войдите с помощью Google и повторите</string>
-    <!-- Main menu -->
-    <string name="filter">Filter</string>
     <!-- Edit Ads Act -->
-    <string name="tv_fraction">Фракция</string>
-    <string name="select_fraction">*Выберите фракуцию</string>
-    <string name="tv_hero_name">Имя героя</string>
-    <string name="select_hero_name">*Выберите героя</string>
-    <string name="tv_affinity">Стихия</string>
-    <string name="select_affinity">*Выберите стихию</string>
-    <string name="tv_role">Роль</string>
-    <string name="select_role">*Выберите роль</string>
-    <string name="tv_rarity">Редкость</string>
-    <string name="select_rarity">*Выберите редкость</string>
-    <string name="tv_status">Статус</string>
-    <string name="tv_geared">geared</string>
     <string name="tel">Телефон:</string>
     <string name="tv_tel">Телефон</string>
     <string name="tv_tel_hint">Номер телефона</string>
-    <string name="tv_index">Индекс</string>
-    <string name="tv_index_hint">*Индекс</string>
-    <string name="tv_hero_data">Данные персонажа</string>
     <string name="category">Категория</string>
     <string name="cat">Категория:</string>
     <string name="select_category">Выберите категорию</string>
@@ -79,7 +53,6 @@
     <string name="description">Описание</string>
     <string name="description_logo">Описание:</string>
     <string name="description_hint">Введите описание</string>
-    <string name="with_send">С отправкой</string>
     <string name="publish">Опубликовать</string>
     <!-- menu_choose_image -->
     <string name="delete_images">удалить картинки</string>
@@ -89,27 +62,23 @@
     <string name="title_equipment">Экипировка</string>
     <string name="title_talents">Таланты</string>
     <string name="title_fight_result">Результат боя</string>
-    <string name="warning_no_fraction_selected">Не выбрана фракция</string>
     <string name="image_counter">1/3</string>
     <string name="working_with_on_pictures">Работа с/над картинками</string>
     <!-- Розное -->
     <string name="any_text">Какойто текст</string>
-    <string name="faction_flag">флаг фракции</string>
     <string name="views">просмотры</string>
     <string name="favorites">Избранное</string>
     <string name="some_number">4596</string>
     <string name="main_image">Основное избражение</string>
-    <string name="symbol_rub">₽</string>
+    <string name="symbol_rub">uzs</string>
     <string name="home">Бастион</string>
     <string name="my_ads">Мои сборки</string>
     <string name="create_assembly">Создать сборку</string>
     <string name="the_guest">Гость</string>
     <string name="you_are_logged_in_as_a_guest">Вы вошли как гость</string>
     <string name="failed_to_login_as_guest">Не удалось войти как гость</string>
-    <string name="apply_filter">Применить фильтр</string>
     <string name="lf_clan">Поиск клана</string>
     <string name="lf_members">Посиск соклановцев</string>
-    <string name="remove_ads">Убрать рекламу</string>
     <string name="all_ads">Все объявления</string>
     <string name="categories">Категории</string>
     <!-- Custom categories -->
