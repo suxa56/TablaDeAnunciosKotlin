@@ -81,7 +81,7 @@ class DbManager{
         readDataFromDb(query, readDataCallback)
     }
 
-    fun getAllAdsByFilterFirstPage(tempFilter: String): Query{
+    private fun getAllAdsByFilterFirstPage(tempFilter: String): Query{
         val orderBy = tempFilter.split("|")[0]
         val filter = tempFilter.split("|")[1]
         return db.orderByChild("/adFilter/$orderBy").startAt(filter).endAt(filter + "\uf8ff").limitToLast(ADS_LIMIT)
@@ -113,7 +113,7 @@ class DbManager{
         readDataFromDb(query, readDataCallback)
     }
 
-    fun getAllAdsFromCatByFilterFirstPage(cat: String, tempFilter: String): Query{
+    private fun getAllAdsFromCatByFilterFirstPage(cat: String, tempFilter: String): Query{
         val orderBy = "cat_" + tempFilter.split("|")[0]
         val filter = cat + "_" + tempFilter.split("|")[1]
         return db.orderByChild("/adFilter/$orderBy").startAt(filter).endAt(filter + "\uf8ff").limitToLast(ADS_LIMIT)
@@ -129,21 +129,11 @@ class DbManager{
 
     }
 
-    fun getAllAdsFromCatByFilterNextPage(cat: String, time: String, tempFilter: String, readDataCallback: ReadDataCallback?){
+    private fun getAllAdsFromCatByFilterNextPage(cat: String, time: String, tempFilter: String, readDataCallback: ReadDataCallback?){
         val orderBy = "cat_" + tempFilter.split("|")[0]
         val filter = cat + "_" + tempFilter.split("|")[1]
         val query = db.orderByChild("/adFilter/$orderBy").endBefore(filter + "_" + time).limitToLast(ADS_LIMIT)
         readNextPageFromDb(query, filter, orderBy,readDataCallback)
-    }
-
-    fun getAllClans(readDataCallback: ReadDataCallback?){
-        val query = db.orderByChild(GET_CLAN_TIME).limitToLast(ADS_LIMIT)
-        readDataFromDb(query, readDataCallback)
-    }
-
-    fun getAllClansNext(Time: String, readDataCallback: ReadDataCallback?){
-        val query = db.orderByChild(GET_CLAN_TIME).endBefore(Time).limitToLast(ADS_LIMIT)
-        readDataFromDb(query, readDataCallback)
     }
 
     fun deleteAd(ad: Ad, listener: FinishWorkListener){
@@ -231,8 +221,5 @@ class DbManager{
         const val ADS_LIMIT = 2
         const val GET_ALL_ADS = "/adFilter/time"
         const val GET_ALL_CAT_ADS = "/adFilter/cat_time"
-
-        const val CLAN_NODE = "clan"
-        const val GET_CLAN_TIME = "/clan/time"
     }
 }

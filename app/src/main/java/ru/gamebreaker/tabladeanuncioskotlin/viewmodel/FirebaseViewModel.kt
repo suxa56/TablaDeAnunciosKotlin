@@ -40,22 +40,6 @@ class FirebaseViewModel : ViewModel() {
         })
     }
 
-    fun loadAllClans() {
-        dbManager.getAllClans(object : DbManager.ReadDataCallback {
-            override fun readData(list: ArrayList<Ad>) {
-                liveAdsData.value = list
-            }
-        })
-    }
-
-    fun loadAllClansNext(time: String) {
-        dbManager.getAllClansNext(time, object : DbManager.ReadDataCallback {
-            override fun readData(list: ArrayList<Ad>) {
-                liveAdsData.value = list
-            }
-        })
-    }
-
     fun onFavClick(ad: Ad) {
         dbManager.onFavClick(ad, object : DbManager.FinishWorkListener {
             override fun onFinish(isDome: Boolean) {
