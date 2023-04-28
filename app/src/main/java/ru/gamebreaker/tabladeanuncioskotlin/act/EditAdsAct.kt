@@ -77,7 +77,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     private fun fillViews(ad: Ad) = with(binding) {
         etTelValue.setText(ad.tel)
-        spCategoryValue.text = ad.category
+        spCategoryValue.text = changeCategory(ad.category)
         etTitleValue.setText(ad.title)
         etPriceValue.setText(ad.price)
         etDescriptionValue.setText(ad.description)
@@ -176,6 +176,23 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
             }
         }
         return getString(dbCategory)
+    }
+
+    private fun changeCategory(categoryFromDb: String?): String {
+        val shownCategory = when (categoryFromDb) {
+            getString(R.string.ad_heroes) -> R.string.ad_auto
+            getString(R.string.ad_faction_war) -> R.string.ad_device
+            getString(R.string.ad_arena) -> R.string.ad_child
+            getString(R.string.ad_dungeons) -> R.string.ad_house
+            getString(R.string.ad_cb) -> R.string.ad_service
+            getString(R.string.ad_tower) -> R.string.ad_work
+            getString(R.string.lf_clan) -> R.string.ad_pet
+            getString(R.string.lf_members) -> R.string.ad_sport
+            else -> {
+                R.string.ad_auto
+            }
+        }
+        return getString(shownCategory)
     }
 
     override fun onFragmentClose(list: ArrayList<Bitmap>) {

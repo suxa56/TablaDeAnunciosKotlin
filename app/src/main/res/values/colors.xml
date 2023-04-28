@@ -12,6 +12,6 @@
     <color name="ic_main">#d3b24d</color>
     <color name="bg_main">#12242B</color>
     <color name="bg_main_light">#104560</color>
-    <color name="light_green">#00FF08</color>
+    <color name="light_green">#ffe088</color>
     <color name="hint_light_green">#84DD87</color>
 </resources>
