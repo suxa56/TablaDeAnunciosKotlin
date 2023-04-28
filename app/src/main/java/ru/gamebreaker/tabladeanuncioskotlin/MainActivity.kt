@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.color.DynamicColors
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -301,7 +302,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             ForegroundColorSpan(
                 ContextCompat.getColor(
                     this@MainActivity,
-                    R.color.ic_main
+                    R.color.onPrimaryContainer
                 )
             ), 0, adsCategory.title!!.length, 0
         )
@@ -309,7 +310,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             ForegroundColorSpan(
                 ContextCompat.getColor(
                     this@MainActivity,
-                    R.color.ic_main
+                    R.color.onPrimaryContainer
                 )
             ), 0, adsCategory2.title!!.length, 0
         )
@@ -317,7 +318,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             ForegroundColorSpan(
                 ContextCompat.getColor(
                     this@MainActivity,
-                    R.color.ic_main
+                    R.color.onPrimaryContainer
                 )
             ), 0, accCategory.title!!.length, 0
         )

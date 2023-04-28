@@ -12,6 +12,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.AdListItemBinding
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,7 +21,7 @@ class AdsRcAdapter(val act: MainActivity) : RecyclerView.Adapter<AdsRcAdapter.Ad
     private var timeFormatter: SimpleDateFormat? = null
 
     init {
-        timeFormatter = SimpleDateFormat("dd/MM/yyyy - hh:mm", Locale.getDefault())
+        timeFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdHolder {

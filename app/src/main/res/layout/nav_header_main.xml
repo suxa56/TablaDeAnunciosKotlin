@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="170dp"
-    android:background="@color/bg_main">
+    android:background="@color/primaryContainer">
 
     <ImageView
         android:id="@+id/imAccountImage"
@@ -23,7 +23,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:text="@string/the_guest"
-        android:textColor="@color/ic_main"
+        android:textColor="@color/onPrimaryContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imAccountImage"

@@ -46,6 +46,7 @@ class DescriptionActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = ad?.title
+        toolbar?.navigationIcon?.setTint(getColor(R.color.onPrimaryContainer))
         toolbar?.setNavigationOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

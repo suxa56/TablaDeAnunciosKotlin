@@ -11,7 +11,7 @@
         android:id="@+id/scroll_view_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg_main_light"
+        android:background="@color/onSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,25 +34,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:title="@string/new_ad"
-                app:titleTextColor="@color/ic_main" />
+                app:titleTextColor="@color/onSecondaryContainer" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardBackgroundColor="@color/bg_main"
-                app:cardCornerRadius="5dp">
+                app:cardBackgroundColor="@color/secondaryContainer"
+                android:layout_marginVertical="8dp"
+                android:layout_marginHorizontal="16dp"
+                app:cardCornerRadius="20dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="5dp">
+                    android:layout_margin="5dp"
+                    android:padding="12dp">
 
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/vpImages"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:padding="5dp"
+                        android:padding="12dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -87,10 +90,10 @@
                         android:id="@+id/tvImageCounter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/black"
+                        android:background="@color/secondaryContainer"
                         android:padding="4dp"
                         android:text="@string/image_counter"
-                        android:textColor="@color/ic_main"
+                        android:textColor="@color/onSecondaryContainer"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -103,15 +106,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="4dp"
-                app:cardBackgroundColor="@color/bg_main"
-                app:cardCornerRadius="5dp">
+                app:cardBackgroundColor="@color/secondaryContainer"
+                android:layout_marginVertical="8dp"
+                android:layout_marginHorizontal="16dp"
+                app:cardCornerRadius="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="12dp">
 
-                    <LinearLayout style="@style/LineEditAds" />
 
                     <TextView
                         android:id="@+id/tvTelTitle"
@@ -134,13 +139,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="4dp"
-                app:cardBackgroundColor="@color/bg_main"
-                app:cardCornerRadius="5dp">
+                app:cardBackgroundColor="@color/secondaryContainer"
+                android:layout_marginVertical="8dp"
+                android:layout_marginHorizontal="16dp"
+                app:cardCornerRadius="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="12dp">
 
                     <TextView
                         android:id="@+id/tvCategoryTitle"
@@ -209,7 +217,7 @@
                 android:layout_marginBottom="10dp"
                 android:onClick="onClickPublish"
                 android:text="@string/publish"
-                android:textColor="@color/ic_main" />
+                android:textColor="@color/primary" />
 
         </LinearLayout>
     </ScrollView>
@@ -218,7 +226,7 @@
         android:id="@+id/progressLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#EB12242B"
+        android:background="@color/onPrimaryContainer"
         android:clickable="true"
         android:focusable="auto"
         android:gravity="center"

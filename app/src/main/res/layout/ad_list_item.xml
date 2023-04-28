@@ -4,27 +4,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bg_main_light"
-    android:paddingBottom="2dp">
+    android:paddingBottom="2dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        app:cardCornerRadius="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/edit_image_bg"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -36,14 +36,15 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:text="@string/tv_title"
-                android:textColor="@color/light_green"
+                android:textColor="@color/primary"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:maxLines="1"
                 android:autoSizeTextType="uniform"
                 android:autoSizeMinTextSize="1sp"/>
 
-            <LinearLayout style="@style/LineEditAds" />
+            <LinearLayout style="@style/LineEditAds"
+                android:layout_marginBottom="8dp"/>
 
             <ImageView
                 android:id="@+id/mainImage"
@@ -54,12 +55,14 @@
                 app:srcCompat="@drawable/ic_default_image"
                 android:contentDescription="@string/main_image" />
 
-            <LinearLayout style="@style/LineEditAds" />
+            <LinearLayout style="@style/LineEditAds"
+                android:layout_marginTop="8dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -67,7 +70,7 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:text="@string/description_logo"
-                android:textColor="@color/ic_main" />
+                android:textColor="@color/primary" />
 
             <TextView
                 android:id="@+id/tvDescription"
@@ -78,7 +81,7 @@
                 android:ellipsize="end"
                 android:maxLines="4"
                 android:text="@string/any_text"
-                android:textColor="@color/light_green" />
+                android:textColor="@color/onPrimaryContainer" />
 
         </LinearLayout>
 
@@ -87,7 +90,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingVertical="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -101,7 +105,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="@string/tv_price"
-                    android:textColor="@color/ic_main" />
+                    android:textColor="@color/primary" />
 
                 <TextView
                     android:id="@+id/tvPriceName"
@@ -110,7 +114,7 @@
                     android:paddingStart="2dp"
                     android:paddingEnd="2dp"
                     android:text="@string/some_number"
-                    android:textColor="@color/light_green" />
+                    android:textColor="@color/onPrimaryContainer" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -118,7 +122,7 @@
                     android:paddingStart="2dp"
                     android:paddingEnd="2dp"
                     android:text="@string/symbol_rub"
-                    android:textColor="@color/light_green" />
+                    android:textColor="@color/onPrimaryContainer" />
 
             </LinearLayout>
 
@@ -136,7 +140,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="01/01/2025"
-                    android:textColor="@color/light_green" />
+                    android:textColor="@color/onPrimaryContainer" />
 
             </LinearLayout>
 
@@ -151,7 +155,8 @@
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:orientation="horizontal"
-                android:baselineAligned="false">
+                android:baselineAligned="false"
+                android:paddingVertical="8dp">
 
                 <LinearLayout
                     android:layout_width="0dp"

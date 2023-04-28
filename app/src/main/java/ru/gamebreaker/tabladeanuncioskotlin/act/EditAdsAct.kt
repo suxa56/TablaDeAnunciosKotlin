@@ -52,6 +52,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     private fun configureToolbar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+        toolbar?.navigationIcon?.setTint(getColor(R.color.onPrimaryContainer))
         if (isEditState) {
             supportActionBar?.title = ad?.title
         } else {
