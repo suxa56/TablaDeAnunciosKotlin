@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.SelectImageFragmentItemBinding
 import ru.gamebreaker.tabladeanuncioskotlin.utils.AdapterCallBack
@@ -70,8 +69,6 @@ class SelectImageRvAdapter(val adapterCallBack: AdapterCallBack) :
 
             }
 
-            viewBinding.tvTitle.text =
-                context.resources.getStringArray(R.array.title_image_array)[adapterPosition]
             ImageManager.chooseScaleType(viewBinding.imageContent, bitmap)
             viewBinding.imageContent.setImageBitmap(bitmap)
 
