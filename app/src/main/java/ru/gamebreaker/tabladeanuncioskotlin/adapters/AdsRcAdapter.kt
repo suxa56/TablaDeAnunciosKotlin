@@ -63,12 +63,19 @@ class AdsRcAdapter(val act: MainActivity) : RecyclerView.Adapter<AdsRcAdapter.Ad
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
+        private val isAnonymous = act.mAuth.currentUser?.isAnonymous
+
         fun setData(ad: Ad) = with(binding) {
             tvDescription.text = ad.description
             tvPriceName.text = ad.price
             tvTitle.text = ad.title
             tvViewCounter.text = ad.viewsCounter
-            tvFavCounter.text = ad.favCounter
+            if (isAnonymous!!) {
+                ibFav.visibility = View.GONE
+                tvFavCounter.visibility = View.GONE
+            } else {
+                tvFavCounter.text = ad.favCounter
+            }
 
             val publishTime = "Время публикации: ${getTimeFromMillis(ad.time)}"
             tvPublishTime.text = publishTime

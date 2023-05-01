@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:shadowColor="@color/onSecondaryContainer"
+        android:shadowColor="@color/shadow"
         android:text="@string/sign_up"
         android:textColor="@color/secondary"
         android:textSize="18sp"
