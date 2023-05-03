@@ -67,8 +67,6 @@ class DialogHelper(val act: MainActivity) {
                 rootDialogElement.edSignEmail.text.toString(),
                 rootDialogElement.edSignPassword.text.toString()
             )
-            Toast.makeText(act, act.resources.getString(R.string.sign_in_done), Toast.LENGTH_LONG)
-                .show()
             dialog?.dismiss()
         }
     }

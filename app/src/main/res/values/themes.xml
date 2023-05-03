@@ -25,7 +25,6 @@
     <style name="ToolbarMainStyle" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorControlNormal">@color/onPrimaryContainer</item>
-        <item name="fontFamily">serif-monospace</item>
     </style>
 
     <!-- MyBtnStyle. -->
