@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         ) //передаём контекст на котором находимся и активити на которое хотим перейти
                         startActivity(i) //запускаем интент и новое активити
                     } else {
-                        dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
+                        dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
                         binding.mainContent.botNavView.selectedItemId = R.id.id_home
                     }
                 }
@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         firebaseViewModel.loadMyAds()
                         mainContent.toolbar.title = getString(R.string.ad_my_ads)
                     } else {
-                        dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
+                        dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
                         binding.mainContent.botNavView.selectedItemId = R.id.id_home
                     }
                 }
@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         firebaseViewModel.loadMyFavs()
                         mainContent.toolbar.title = "Избранное"
                     } else {
-                        dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
+                        dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
                         binding.mainContent.botNavView.selectedItemId = R.id.id_home
                     }
                 }
