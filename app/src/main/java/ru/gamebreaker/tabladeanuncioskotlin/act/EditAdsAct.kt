@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -45,7 +44,6 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         setContentView(view)
         init()
         checkEditState()
-        imageChangeCounter()
         configureToolbar()
     }
 
@@ -82,7 +80,6 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         etTitleValue.setText(ad.title)
         etPriceValue.setText(ad.price)
         etDescriptionValue.setText(ad.description)
-        updateImageCounter(0)
         ImageManager.fillImageArray(ad, imageAdapter)
     }
 
@@ -100,12 +97,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickGetImages(view: View) {
-        if (imageAdapter.mainArray.size == 0) {
-            ImagePicker.getMultiImages(this, 3)
-        } else {
-            openChooseItemFragment(null)
-            chooseImageFragment?.updateAdapterFromEdit(imageAdapter.mainArray)
-        }
+        ImagePicker.getMultiImages(this, 3)
     }
 
     fun onClickPublish(view: View) {
@@ -200,7 +192,6 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         binding.scrollViewMain.visibility = View.VISIBLE
         imageAdapter.update(list)
         chooseImageFragment = null
-        updateImageCounter(binding.vpImages.currentItem)
     }
 
     fun openChooseItemFragment(newList: ArrayList<Uri>?) {
@@ -286,22 +277,5 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         upTask.continueWithTask {
             imStorageRef.downloadUrl
         }.addOnCompleteListener(listener)
-    }
-
-    private fun imageChangeCounter() {
-        binding.vpImages.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                updateImageCounter(position)
-            }
-        })
-    }
-
-    private fun updateImageCounter(counter: Int) {
-        val index = 1
-        val itemCount = binding.vpImages.adapter?.itemCount
-        if (itemCount == 0) index == 0
-        val imageCounter = "${counter + index}/$itemCount"
-        binding.tvImageCounter.text = imageCounter
     }
 }

@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/ad_heroes"
+        app:title="@string/all_ads"
         app:titleTextColor="@color/onPrimaryContainer" />
 
     <androidx.recyclerview.widget.RecyclerView

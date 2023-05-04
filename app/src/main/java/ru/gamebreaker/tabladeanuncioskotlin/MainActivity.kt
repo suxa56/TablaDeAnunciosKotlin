@@ -215,10 +215,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
             }
             R.id.id_sign_out -> {
-                if (mAuth.currentUser?.isAnonymous == true) {
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
-                    return true
-                }
                 val text = getString(R.string.sign_out_done)
                 Toast.makeText(this@MainActivity, text, length).show()
                 uiUpdate(null)
