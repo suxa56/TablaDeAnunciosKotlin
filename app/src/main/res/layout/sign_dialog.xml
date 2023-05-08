@@ -67,26 +67,31 @@
         app:layout_constraintStart_toStartOf="@+id/edSignEmail"
         app:layout_constraintTop_toBottomOf="@+id/tvSignTitle" />
 
-    <TextView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btSignUpIn"
-        style="@style/MyBtnStyle"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/sign_up_action"
-        app:layout_constraintBottom_toTopOf="@+id/btForgetP"
-        app:layout_constraintEnd_toEndOf="@+id/edSignEmail"
-        app:layout_constraintStart_toStartOf="@+id/edSignEmail"
-        app:layout_constraintTop_toBottomOf="@+id/edSignPassword" />
+        app:layout_constraintEnd_toEndOf="@+id/edSignPassword"
+        app:layout_constraintStart_toStartOf="@+id/edSignPassword"
+        app:layout_constraintTop_toBottomOf="@+id/edSignPassword"
+        android:textColor="@color/onPrimary"
+        android:backgroundTint="@color/primary"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"/>
 
-    <TextView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btForgetP"
-        style="@style/MyBtnStyle"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:text="@string/forget_password"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/edSignEmail"
-        app:layout_constraintStart_toStartOf="@+id/edSignEmail"
-        app:layout_constraintTop_toBottomOf="@+id/btSignUpIn" />
+        app:layout_constraintEnd_toEndOf="@+id/btSignUpIn"
+        app:layout_constraintStart_toStartOf="@+id/btSignUpIn"
+        app:layout_constraintTop_toBottomOf="@+id/btSignUpIn"
+        android:textColor="@color/onPrimary"
+        android:backgroundTint="@color/primary"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
