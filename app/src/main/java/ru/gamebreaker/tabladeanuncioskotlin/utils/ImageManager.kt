@@ -11,8 +11,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import ru.gamebreaker.tabladeanuncioskotlin.adapters.ImageAdapter
-import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
+import ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters.ImageAdapter
+import ru.gamebreaker.tabladeanuncioskotlin.domain.model.Ad
 
 object ImageManager {
 

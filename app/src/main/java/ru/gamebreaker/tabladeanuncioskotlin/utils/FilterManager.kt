@@ -1,7 +1,7 @@
 package ru.gamebreaker.tabladeanuncioskotlin.utils
 
-import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
-import ru.gamebreaker.tabladeanuncioskotlin.model.AdFilter
+import ru.gamebreaker.tabladeanuncioskotlin.domain.model.Ad
+import ru.gamebreaker.tabladeanuncioskotlin.domain.model.AdFilter
 
 object FilterManager {
     fun createFilter(ad: Ad): AdFilter {

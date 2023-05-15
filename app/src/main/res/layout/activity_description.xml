@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="4dp"
-        tools:context=".act.DescriptionActivity">
+        tools:context=".presentation.act.DescriptionActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"

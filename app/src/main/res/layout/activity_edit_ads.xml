@@ -5,7 +5,7 @@
     android:id="@+id/place_holder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".act.EditAdsAct">
+    tools:context=".presentation.act.EditAdsAct">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
