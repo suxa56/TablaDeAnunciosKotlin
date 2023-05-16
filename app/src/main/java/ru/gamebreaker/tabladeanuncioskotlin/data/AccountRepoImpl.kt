@@ -8,11 +8,13 @@ import ru.gamebreaker.tabladeanuncioskotlin.domain.repo.AccountRepo
 
 class AccountRepoImpl(private val act: MainActivity): AccountRepo {
 
+    private val mAuth = FirebaseAuth.getInstance()
+
     override fun signUpWithEmail(email: String, password: String) {
         if (email.isNotEmpty() && password.isNotEmpty()) {
-            act.mAuth.currentUser?.delete()?.addOnCompleteListener { task ->
+            mAuth.currentUser?.delete()?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    act.mAuth.createUserWithEmailAndPassword(email, password)
+                    mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener { it ->
                             if (it.isSuccessful) {
                                 signUpWithEmailSuccessful(it.result?.user!!)
@@ -27,9 +29,9 @@ class AccountRepoImpl(private val act: MainActivity): AccountRepo {
 
     override fun signInWithEmail(email: String, password: String) {
         if (email.isNotEmpty() && password.isNotEmpty()) {
-            act.mAuth.currentUser?.delete()?.addOnCompleteListener { task ->
+            mAuth.currentUser?.delete()?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    act.mAuth.signInWithEmailAndPassword(email, password)
+                    mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener { it ->
                             if (it.isSuccessful) {
                                 act.uiUpdate(it.result?.user)
@@ -43,7 +45,7 @@ class AccountRepoImpl(private val act: MainActivity): AccountRepo {
     }
 
     fun signInAnonymously(listener: Listener) {
-        act.mAuth.signInAnonymously().addOnCompleteListener { task ->
+        mAuth.signInAnonymously().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 listener.onComplete()
                 Toast.makeText(act, R.string.you_are_logged_in_as_a_guest, Toast.LENGTH_LONG).show()
