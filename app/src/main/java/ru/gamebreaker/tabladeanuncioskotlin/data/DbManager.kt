@@ -1,4 +1,4 @@
-package ru.gamebreaker.tabladeanuncioskotlin.domain.model
+package ru.gamebreaker.tabladeanuncioskotlin.data
 
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -8,6 +8,8 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import ru.gamebreaker.tabladeanuncioskotlin.domain.model.Ad
+import ru.gamebreaker.tabladeanuncioskotlin.domain.model.InfoItem
 import ru.gamebreaker.tabladeanuncioskotlin.utils.FilterManager
 
 class DbManager{

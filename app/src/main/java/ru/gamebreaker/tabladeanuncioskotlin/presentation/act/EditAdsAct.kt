@@ -18,7 +18,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.presentation.dialogs.DialogSpinnerHe
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.fragments.FragmentCloseInterface
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.fragments.ImageListFragment
 import ru.gamebreaker.tabladeanuncioskotlin.domain.model.Ad
-import ru.gamebreaker.tabladeanuncioskotlin.domain.model.DbManager
+import ru.gamebreaker.tabladeanuncioskotlin.data.DbManager
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImageManager
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 import java.io.ByteArrayOutputStream

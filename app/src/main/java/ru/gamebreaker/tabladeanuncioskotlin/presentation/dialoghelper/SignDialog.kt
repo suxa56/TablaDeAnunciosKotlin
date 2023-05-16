@@ -5,11 +5,11 @@ import android.view.View
 import android.widget.Toast
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.MainActivity
 import ru.gamebreaker.tabladeanuncioskotlin.R
-import ru.gamebreaker.tabladeanuncioskotlin.data.accaunthelper.AccountHelper
+import ru.gamebreaker.tabladeanuncioskotlin.data.AccountRepoImpl
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.SignDialogBinding
 
-class DialogHelper(val act: MainActivity) {
-    val accHelper = AccountHelper(act)
+class SignDialog(val act: MainActivity) {
+    val accHelper = AccountRepoImpl(act)
 
     fun createSignDialog(index: Int) {
         val builder = AlertDialog.Builder(act)
@@ -57,7 +57,7 @@ class DialogHelper(val act: MainActivity) {
         dialog: AlertDialog?
     ) {
         dialog?.dismiss()
-        if (index == DialogConst.SIGN_UP_STATE) {
+        if (index == SIGN_UP_STATE) {
             accHelper.signUpWithEmail(
                 rootDialogElement.edSignEmail.text.toString(),
                 rootDialogElement.edSignPassword.text.toString()
@@ -72,7 +72,7 @@ class DialogHelper(val act: MainActivity) {
     }
 
     private fun setDialogStare(index: Int, rootDialogElement: SignDialogBinding) {
-        if (index == DialogConst.SIGN_UP_STATE) {
+        if (index == SIGN_UP_STATE) {
             rootDialogElement.tvSignTitle.text = act.resources.getString(R.string.sign_up)
             rootDialogElement.btSignUpIn.text =
                 act.resources.getString(R.string.sign_up_action)
@@ -82,6 +82,11 @@ class DialogHelper(val act: MainActivity) {
                 act.resources.getString(R.string.sign_in_action)
             rootDialogElement.btForgetP.visibility = View.VISIBLE
         }
+    }
+
+    companion object {
+        const val SIGN_UP_STATE = 0
+        const val SIGN_IN_STATE = 1
     }
 
 }

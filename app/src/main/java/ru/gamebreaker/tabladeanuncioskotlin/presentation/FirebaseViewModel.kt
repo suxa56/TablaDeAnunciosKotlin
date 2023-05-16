@@ -3,7 +3,7 @@ package ru.gamebreaker.tabladeanuncioskotlin.presentation
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.gamebreaker.tabladeanuncioskotlin.domain.model.Ad
-import ru.gamebreaker.tabladeanuncioskotlin.domain.model.DbManager
+import ru.gamebreaker.tabladeanuncioskotlin.data.DbManager
 
 class FirebaseViewModel : ViewModel() {
     private val dbManager = DbManager()

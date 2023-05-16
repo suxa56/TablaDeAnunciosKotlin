@@ -1,4 +1,4 @@
-package ru.gamebreaker.tabladeanuncioskotlin.data.constants
+package ru.gamebreaker.tabladeanuncioskotlin.data
 
 object FirebaseAuthConstants {
     const val ERROR_EMAIL_ALREADY_IN_USE = "ERROR_EMAIL_ALREADY_IN_USE"

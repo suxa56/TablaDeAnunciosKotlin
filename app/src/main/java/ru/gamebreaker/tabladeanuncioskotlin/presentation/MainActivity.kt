@@ -20,21 +20,20 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import ru.gamebreaker.tabladeanuncioskotlin.R
-import ru.gamebreaker.tabladeanuncioskotlin.data.accaunthelper.AccountHelper
+import ru.gamebreaker.tabladeanuncioskotlin.data.AccountRepoImpl
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
 import ru.gamebreaker.tabladeanuncioskotlin.domain.model.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.act.DescriptionActivity
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.act.EditAdsAct
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters.AdRVAdapter
-import ru.gamebreaker.tabladeanuncioskotlin.presentation.dialoghelper.DialogConst
-import ru.gamebreaker.tabladeanuncioskotlin.presentation.dialoghelper.DialogHelper
+import ru.gamebreaker.tabladeanuncioskotlin.presentation.dialoghelper.SignDialog
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     AdRVAdapter.Listener {
     private lateinit var tvAccount: TextView
     private lateinit var imAccount: ImageView
     private lateinit var binding: ActivityMainBinding
-    private val dialogHelper = DialogHelper(this)
+    private val signDialog = SignDialog(this)
     val mAuth = Firebase.auth
     val adapter = AdRVAdapter(this)
     private val firebaseViewModel: FirebaseViewModel by viewModels()
@@ -51,7 +50,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initRecyclerView()
         initViewModel()
         bottomMenuOnClick()
-//        scrollListener()
     }
 
     override fun onStart() {
@@ -117,7 +115,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         ) //передаём контекст на котором находимся и активити на которое хотим перейти
                         startActivity(i) //запускаем интент и новое активити
                     } else {
-                        dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
+                        signDialog.createSignDialog(SignDialog.SIGN_UP_STATE)
                         binding.mainContent.botNavView.selectedItemId = R.id.id_home
                     }
                 }
@@ -126,7 +124,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         firebaseViewModel.loadMyAds()
                         mainContent.toolbar.title = getString(R.string.ad_my_ads)
                     } else {
-                        dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
+                        signDialog.createSignDialog(SignDialog.SIGN_UP_STATE)
                         binding.mainContent.botNavView.selectedItemId = R.id.id_home
                     }
                 }
@@ -136,7 +134,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         firebaseViewModel.loadMyFavs()
                         mainContent.toolbar.title = "Избранное"
                     } else {
-                        dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
+                        signDialog.createSignDialog(SignDialog.SIGN_UP_STATE)
                         binding.mainContent.botNavView.selectedItemId = R.id.id_home
                     }
                 }
@@ -203,10 +201,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 mainContent.toolbar.title = getString(R.string.all_ads)
             }
             R.id.id_sign_up -> {
-                dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
+                signDialog.createSignDialog(SignDialog.SIGN_IN_STATE)
             }
             R.id.id_sign_in -> {
-                dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
+                signDialog.createSignDialog(SignDialog.SIGN_IN_STATE)
             }
             R.id.id_sign_out -> {
                 val text = getString(R.string.sign_out_done)
@@ -240,7 +238,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun uiUpdate(user: FirebaseUser?) {
         imAccount.setImageResource(R.drawable.ic_account_default)
         if (user == null) {
-            dialogHelper.accHelper.signInAnonymously(object : AccountHelper.Listener {
+            signDialog.accHelper.signInAnonymously(object : AccountRepoImpl.Listener {
                 override fun onComplete() {
                     tvAccount.text = getString(R.string.the_guest)
                     binding.navView.menu.findItem(R.id.id_my_ads).isVisible = false
