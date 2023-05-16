@@ -8,16 +8,16 @@ import ru.gamebreaker.tabladeanuncioskotlin.data.DbManager
 class FirebaseViewModel : ViewModel() {
     private val dbManager = DbManager()
     val liveAdsData = MutableLiveData<ArrayList<Ad>>()
-    fun loadAllAdsFirstPage(filter: String) {
-        dbManager.getAllAdsFirstPage(filter, object : DbManager.ReadDataCallback {
+    fun loadAllAds() {
+        dbManager.getAllAds(object : DbManager.ReadDataCallback {
             override fun readData(list: ArrayList<Ad>) {
                 liveAdsData.value = list
             }
         })
     }
 
-    fun loadAllAdsFromCat(cat: String, filter: String) {
-        dbManager.getAllAdsFromCatFirstPage(cat, filter, object : DbManager.ReadDataCallback {
+    fun loadAllAdsFromCat(cat: String) {
+        dbManager.getAllAdsFromCat(cat, object : DbManager.ReadDataCallback {
             override fun readData(list: ArrayList<Ad>) {
                 liveAdsData.value = list
             }

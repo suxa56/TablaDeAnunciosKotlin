@@ -74,40 +74,14 @@ class DbManager{
         readDataFromDb(query, readDataCallback)
     }
 
-    fun getAllAdsFirstPage(filter: String, readDataCallback: ReadDataCallback?){
-        val query = if(filter.isEmpty()){
-            db.orderByChild(GET_ALL_ADS).limitToLast(ADS_LIMIT)
-        } else {
-            getAllAdsByFilterFirstPage(filter)
-        }
+    fun getAllAds(readDataCallback: ReadDataCallback?){
+        val query = db.orderByChild(GET_ALL_ADS)
         readDataFromDb(query, readDataCallback)
     }
 
-    private fun getAllAdsByFilterFirstPage(tempFilter: String): Query{
-        val orderBy = tempFilter.split("|")[0]
-        val filter = tempFilter.split("|")[1]
-        return db.orderByChild("/adFilter/$orderBy").startAt(filter).endAt(filter + "\uf8ff").limitToLast(
-            ADS_LIMIT
-        )
-    }
-
-    fun getAllAdsFromCatFirstPage(cat: String, filter: String, readDataCallback: ReadDataCallback?){
-        val query = if (filter.isEmpty()){
-            db.orderByChild(GET_ALL_CAT_ADS).startAt(cat).endAt(cat + "_\uf8ff").limitToLast(
-                ADS_LIMIT
-            )
-        } else {
-            getAllAdsFromCatByFilterFirstPage(cat, filter)
-        }
+    fun getAllAdsFromCat(cat: String, readDataCallback: ReadDataCallback?){
+        val query = db.orderByChild(GET_ALL_CAT_ADS).startAt(cat).endAt(cat + "_\uf8ff")
         readDataFromDb(query, readDataCallback)
-    }
-
-    private fun getAllAdsFromCatByFilterFirstPage(cat: String, tempFilter: String): Query{
-        val orderBy = "cat_" + tempFilter.split("|")[0]
-        val filter = cat + "_" + tempFilter.split("|")[1]
-        return db.orderByChild("/adFilter/$orderBy").startAt(filter).endAt(filter + "\uf8ff").limitToLast(
-            ADS_LIMIT
-        )
     }
 
     fun deleteAd(ad: Ad, listener: FinishWorkListener){
@@ -162,7 +136,6 @@ class DbManager{
         const val INFO_NODE = "info"
         const val MAIN_NODE = "main"
         const val FAVS_NODE = "favs"
-        const val ADS_LIMIT = 1000
         const val GET_ALL_ADS = "/adFilter/time"
         const val GET_ALL_CAT_ADS = "/adFilter/cat_time"
     }

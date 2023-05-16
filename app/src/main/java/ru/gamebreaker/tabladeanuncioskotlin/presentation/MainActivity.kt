@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 R.id.id_home -> {
                     currentCategory = getString(R.string.def)
-                    filterDb?.let { firebaseViewModel.loadAllAdsFirstPage(it) }
+                    filterDb?.let { firebaseViewModel.loadAllAds() }
                     mainContent.toolbar.title = getString(R.string.all_ads)
                 }
             }
@@ -197,7 +197,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.all_ads -> {
                 currentCategory = getString(R.string.def)
-                filterDb?.let { firebaseViewModel.loadAllAdsFirstPage(it) }
+                filterDb?.let { firebaseViewModel.loadAllAds() }
                 mainContent.toolbar.title = getString(R.string.all_ads)
             }
             R.id.id_sign_up -> {
@@ -232,7 +232,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
         currentCategory = getString(catForDB)
-        filterDb?.let { firebaseViewModel.loadAllAdsFromCat(getString(catForDB), it) }
+        filterDb?.let { firebaseViewModel.loadAllAdsFromCat(getString(catForDB)) }
     }
 
     fun uiUpdate(user: FirebaseUser?) {
