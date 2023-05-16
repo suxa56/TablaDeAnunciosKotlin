@@ -1,4 +1,4 @@
-package ru.gamebreaker.tabladeanuncioskotlin.presentation.dialogs
+package ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters
 
 import android.app.AlertDialog
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.gamebreaker.tabladeanuncioskotlin.R
 
 
-class RcViewDialogSpinnerAdapter(var tvSelection: TextView, var dialog: AlertDialog) :
-    RecyclerView.Adapter<RcViewDialogSpinnerAdapter.SpViewHolder>() {
+class CategoryRVAdapter(var tvSelection: TextView, var dialog: AlertDialog) :
+    RecyclerView.Adapter<CategoryRVAdapter.SpViewHolder>() {
     private val mainList = ArrayList<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpViewHolder {

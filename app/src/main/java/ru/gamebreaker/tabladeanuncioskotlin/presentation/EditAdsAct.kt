@@ -1,24 +1,30 @@
 package ru.gamebreaker.tabladeanuncioskotlin.presentation
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import ru.gamebreaker.tabladeanuncioskotlin.R
-import ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters.ImageAdapter
+import ru.gamebreaker.tabladeanuncioskotlin.data.DbManager
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityEditAdsBinding
-import ru.gamebreaker.tabladeanuncioskotlin.presentation.dialogs.DialogSpinnerHelper
+import ru.gamebreaker.tabladeanuncioskotlin.domain.model.Ad
+import ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters.ImageAdapter
+import ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters.CategoryRVAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.fragments.FragmentCloseInterface
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.fragments.ImageListFragment
-import ru.gamebreaker.tabladeanuncioskotlin.domain.model.Ad
-import ru.gamebreaker.tabladeanuncioskotlin.data.DbManager
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImageManager
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 import java.io.ByteArrayOutputStream
@@ -28,7 +34,6 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     var chooseImageFragment: ImageListFragment? = null
     lateinit var binding: ActivityEditAdsBinding
-    private val dialog = DialogSpinnerHelper()
     lateinit var imageAdapter: ImageAdapter
     private val dbManager = DbManager()
     var editImagePos = 0
@@ -93,7 +98,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     //OnClicks
     fun onClickSelectCategory(view: View) {
         val listCategory = resources.getStringArray(R.array.category).toMutableList() as ArrayList
-        dialog.showSpinnerDialog(this, listCategory, binding.spCategoryValue)
+        showSpinnerDialog(this, listCategory, binding.spCategoryValue)
     }
 
     fun onClickGetImages(view: View) {
@@ -108,6 +113,20 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         binding.progressLayout.visibility = View.VISIBLE
         ad = fillAd()
         uploadImages()
+    }
+
+    private fun showSpinnerDialog(context: Context, list: ArrayList<String>, tvSelection: TextView) {
+        val builder = AlertDialog.Builder(context)
+        val dialog = builder.create()
+
+        val rootView = LayoutInflater.from(context).inflate(R.layout.spinner_layout, null)
+        val adapter = CategoryRVAdapter(tvSelection, dialog)
+        val rcView = rootView.findViewById<RecyclerView>(R.id.rcSpView)
+        rcView.layoutManager = LinearLayoutManager(context)
+        rcView.adapter = adapter
+        dialog.setView(rootView)
+        adapter.updateAdapter(list)
+        dialog.show()
     }
 
     private fun isFieldsEmpty(): Boolean = with(binding) {
