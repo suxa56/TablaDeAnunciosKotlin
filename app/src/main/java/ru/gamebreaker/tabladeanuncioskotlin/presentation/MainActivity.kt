@@ -15,29 +15,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.data.accaunthelper.AccountHelper
+import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
+import ru.gamebreaker.tabladeanuncioskotlin.domain.model.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.act.DescriptionActivity
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.act.EditAdsAct
-import ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters.AdsRcAdapter
-import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
+import ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters.AdRVAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.dialoghelper.DialogConst
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.dialoghelper.DialogHelper
-import ru.gamebreaker.tabladeanuncioskotlin.domain.model.Ad
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    AdsRcAdapter.Listener {
+    AdRVAdapter.Listener {
     private lateinit var tvAccount: TextView
     private lateinit var imAccount: ImageView
     private lateinit var binding: ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
     val mAuth = Firebase.auth
-    val adapter = AdsRcAdapter(this)
+    val adapter = AdRVAdapter(this)
     private val firebaseViewModel: FirebaseViewModel by viewModels()
     private var clearUpdate: Boolean = true
     private var currentCategory: String? = null
@@ -52,7 +51,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initRecyclerView()
         initViewModel()
         bottomMenuOnClick()
-        scrollListener()
+//        scrollListener()
     }
 
     override fun onStart() {
@@ -68,11 +67,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun initViewModel() {
         firebaseViewModel.liveAdsData.observe(this) {
             val list = getAdsByCategory(it)
-            if (!clearUpdate) {
-                adapter.updateAdapter(list)
-            } else {
-                adapter.updateAdapterWithClear(list)
-            }
+            adapter.submitList(list)
             binding.mainContent.tvEmpty.visibility =
                 if (adapter.itemCount == 0) View.VISIBLE else View.GONE
         }
@@ -322,39 +317,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         accCategory.title = spanAccCat
     }
 
-    private fun scrollListener() = with(binding.mainContent) {
-        rcView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recView, newState)
-                if (!recView.canScrollVertically(SCROLL_DOWN) && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    clearUpdate = false
-                    val adsList = firebaseViewModel.liveAdsData.value!!
-                    if (adsList.isNotEmpty()) {
-                        getAdsFromCat(adsList)
-                    }
-                }
-            }
-        })
-    }
-
-    private fun getAdsFromCat(adsList: ArrayList<Ad>) {
-        adsList[0].let {
-            if (currentCategory == getString(R.string.def)) {
-                filterDb?.let { it1 -> firebaseViewModel.loadAllAdsNextPage(it.time, it1) }
-            } else {
-                filterDb?.let { it1 ->
-                    firebaseViewModel.loadAllAdsFromCatNextPage(
-                        it.category!!, it.time,
-                        it1
-                    )
-                }
-            }
-        }
-    }
-
     companion object {
         const val EDIT_STATE = "edit_state"
         const val ADS_DATA = "ads_data"
-        const val SCROLL_DOWN = 1
     }
 }
