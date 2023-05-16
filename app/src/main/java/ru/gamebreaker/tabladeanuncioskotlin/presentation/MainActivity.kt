@@ -23,8 +23,6 @@ import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.data.AccountRepoImpl
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
 import ru.gamebreaker.tabladeanuncioskotlin.domain.model.Ad
-import ru.gamebreaker.tabladeanuncioskotlin.presentation.act.DescriptionActivity
-import ru.gamebreaker.tabladeanuncioskotlin.presentation.act.EditAdsAct
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters.AdRVAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.dialoghelper.SignDialog
 

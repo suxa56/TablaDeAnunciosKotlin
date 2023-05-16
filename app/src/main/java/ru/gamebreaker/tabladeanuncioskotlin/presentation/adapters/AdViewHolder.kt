@@ -8,7 +8,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.AdListItemBinding
 import ru.gamebreaker.tabladeanuncioskotlin.domain.model.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.MainActivity
-import ru.gamebreaker.tabladeanuncioskotlin.presentation.act.EditAdsAct
+import ru.gamebreaker.tabladeanuncioskotlin.presentation.EditAdsAct
 import java.text.SimpleDateFormat
 import java.util.*
 

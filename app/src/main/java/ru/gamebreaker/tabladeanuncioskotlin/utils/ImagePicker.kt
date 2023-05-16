@@ -12,7 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.gamebreaker.tabladeanuncioskotlin.R
-import ru.gamebreaker.tabladeanuncioskotlin.presentation.act.EditAdsAct
+import ru.gamebreaker.tabladeanuncioskotlin.presentation.EditAdsAct
 
 object ImagePicker {
 

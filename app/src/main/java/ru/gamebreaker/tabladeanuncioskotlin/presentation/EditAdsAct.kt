@@ -1,16 +1,16 @@
-package ru.gamebreaker.tabladeanuncioskotlin.presentation.act
+package ru.gamebreaker.tabladeanuncioskotlin.presentation
 
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import ru.gamebreaker.tabladeanuncioskotlin.presentation.MainActivity
 import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters.ImageAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityEditAdsBinding
@@ -102,7 +102,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     fun onClickPublish(view: View) {
         if (isFieldsEmpty()) {
-            showToast("Внимание! Все поля * должны быть заполнены!")
+            Toast.makeText(this, "Внимание! Все поля * должны быть заполнены!", Toast.LENGTH_LONG).show()
             return
         }
         binding.progressLayout.visibility = View.VISIBLE

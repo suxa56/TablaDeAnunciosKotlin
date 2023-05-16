@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.gamebreaker.tabladeanuncioskotlin.presentation.act.EditAdsAct
+import ru.gamebreaker.tabladeanuncioskotlin.presentation.EditAdsAct
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.SelectImageFragmentItemBinding
 import ru.gamebreaker.tabladeanuncioskotlin.utils.AdapterCallBack
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImageManager

@@ -13,11 +13,11 @@
         android:theme="@style/Theme.TablaDeAnunciosKotlin"
         tools:replace="android:theme">
         <activity
-            android:name=".presentation.act.DescriptionActivity"
+            android:name=".presentation.DescriptionActivity"
             android:exported="true"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".presentation.act.EditAdsAct"
+        <activity android:name=".presentation.EditAdsAct"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
         <activity android:name=".presentation.MainActivity"

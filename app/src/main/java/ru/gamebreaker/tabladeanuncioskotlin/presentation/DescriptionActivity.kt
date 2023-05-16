@@ -1,4 +1,4 @@
-package ru.gamebreaker.tabladeanuncioskotlin.presentation.act
+package ru.gamebreaker.tabladeanuncioskotlin.presentation
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.net.toUri
 import androidx.viewpager2.widget.ViewPager2
-import ru.gamebreaker.tabladeanuncioskotlin.presentation.MainActivity
 import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters.ImageAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityDescriptionBinding

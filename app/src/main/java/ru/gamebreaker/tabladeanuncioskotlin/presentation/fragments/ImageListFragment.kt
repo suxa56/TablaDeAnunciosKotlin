@@ -18,7 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.gamebreaker.tabladeanuncioskotlin.R
-import ru.gamebreaker.tabladeanuncioskotlin.presentation.act.EditAdsAct
+import ru.gamebreaker.tabladeanuncioskotlin.presentation.EditAdsAct
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ListImageFragBinding
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.dialoghelper.ProgressDialog
 import ru.gamebreaker.tabladeanuncioskotlin.utils.AdapterCallBack
