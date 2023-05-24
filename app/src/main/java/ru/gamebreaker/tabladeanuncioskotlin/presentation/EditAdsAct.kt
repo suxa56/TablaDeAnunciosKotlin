@@ -13,11 +13,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.net.toFile
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.data.DbManager
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityEditAdsBinding
@@ -105,12 +110,33 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     fun onClickGetImages(view: View) {
 //        ImagePicker.getMultiImages(this, 3)
-        supportFragmentManager.beginTransaction().replace(R.id.place_holder, CameraFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.place_holder, CameraFragment {
+            val fList = supportFragmentManager.fragments
+            var imageBitmap: Bitmap? = null
+            fList.forEach { fragment ->
+                if (fragment.isVisible) supportFragmentManager.beginTransaction().remove(fragment)
+                    .commit()
+            }
+            Log.d("lololo", it.toString())
+            Log.d("lololo", it.encodedPath.toString())
+            Log.d("lololo", it.path.toString())
+            lifecycleScope.launch {
+                kotlin.runCatching {
+                    imageBitmap = Picasso.get().load(it).get()
+                }
+//                imageAdapter.update(arrayListOf(imageBitmap!!))
+//                ImageManager.imageResize(listOf(it), this@EditAdsAct)
+            }
+//            Picasso.get().load(it.toFile()).get()
+
+//            imageAdapter.update(ArrayList(listOf(imageBitmap)))
+        }).commit()
     }
 
     fun onClickPublish(view: View) {
         if (isFieldsEmpty()) {
-            Toast.makeText(this, "Внимание! Все поля * должны быть заполнены!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Внимание! Все поля * должны быть заполнены!", Toast.LENGTH_LONG)
+                .show()
             return
         }
         binding.progressLayout.visibility = View.VISIBLE
@@ -118,7 +144,11 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         uploadImages()
     }
 
-    private fun showSpinnerDialog(context: Context, list: ArrayList<String>, tvSelection: TextView) {
+    private fun showSpinnerDialog(
+        context: Context,
+        list: ArrayList<String>,
+        tvSelection: TextView
+    ) {
         val builder = AlertDialog.Builder(context)
         val dialog = builder.create()
 
