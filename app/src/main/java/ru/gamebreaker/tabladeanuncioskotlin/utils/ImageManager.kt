@@ -63,7 +63,7 @@ object ImageManager {
             for (i in uris.indices) {
                 kotlin.runCatching {
                     bitmapList.add(
-                        Picasso.get().load(uris[i]).resize(tempList[i][WIDTH], tempList[i][HEIGHT])
+                        Picasso.get().load(uris[i])
                             .get()
                     )
                 }

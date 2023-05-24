@@ -13,27 +13,23 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.net.toFile
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.squareup.picasso.Picasso
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.data.DbManager
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityEditAdsBinding
 import ru.gamebreaker.tabladeanuncioskotlin.domain.model.Ad
-import ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters.ImageAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters.CategoryRVAdapter
+import ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters.ImageAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.fragments.CameraFragment
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.fragments.FragmentCloseInterface
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.fragments.ImageListFragment
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImageManager
-import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 import java.io.ByteArrayOutputStream
 
 
@@ -112,7 +108,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 //        ImagePicker.getMultiImages(this, 3)
         supportFragmentManager.beginTransaction().replace(R.id.place_holder, CameraFragment {
             val fList = supportFragmentManager.fragments
-            var imageBitmap: Bitmap? = null
+            var imageBitmap: List<Bitmap>? = null
             fList.forEach { fragment ->
                 if (fragment.isVisible) supportFragmentManager.beginTransaction().remove(fragment)
                     .commit()
@@ -121,15 +117,12 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
             Log.d("lololo", it.encodedPath.toString())
             Log.d("lololo", it.path.toString())
             lifecycleScope.launch {
-                kotlin.runCatching {
-                    imageBitmap = Picasso.get().load(it).get()
-                }
-//                imageAdapter.update(arrayListOf(imageBitmap!!))
-//                ImageManager.imageResize(listOf(it), this@EditAdsAct)
-            }
-//            Picasso.get().load(it.toFile()).get()
+                imageBitmap = ImageManager.imageResize(listOf(it), this@EditAdsAct)
 
-//            imageAdapter.update(ArrayList(listOf(imageBitmap)))
+                imageAdapter.update(arrayListOf(imageBitmap!![0]))
+                Log.d("lololo", imageBitmap.toString())
+            }
+
         }).commit()
     }
 
