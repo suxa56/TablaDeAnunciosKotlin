@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -23,6 +24,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityEditAdsBinding
 import ru.gamebreaker.tabladeanuncioskotlin.domain.model.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters.ImageAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.adapters.CategoryRVAdapter
+import ru.gamebreaker.tabladeanuncioskotlin.presentation.fragments.CameraFragment
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.fragments.FragmentCloseInterface
 import ru.gamebreaker.tabladeanuncioskotlin.presentation.fragments.ImageListFragment
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImageManager
@@ -102,7 +104,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickGetImages(view: View) {
-        ImagePicker.getMultiImages(this, 3)
+//        ImagePicker.getMultiImages(this, 3)
+        supportFragmentManager.beginTransaction().replace(R.id.place_holder, CameraFragment()).commit()
     }
 
     fun onClickPublish(view: View) {
