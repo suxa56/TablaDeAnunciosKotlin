@@ -1,5 +1,6 @@
 package ru.gamebreaker.tabladeanuncioskotlin.presentation
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.gamebreaker.tabladeanuncioskotlin.domain.model.Ad
@@ -7,11 +8,12 @@ import ru.gamebreaker.tabladeanuncioskotlin.data.DbManager
 
 class FirebaseViewModel : ViewModel() {
     private val dbManager = DbManager()
-    val liveAdsData = MutableLiveData<ArrayList<Ad>>()
+    private val _liveAdsData = MutableLiveData<ArrayList<Ad>>()
+    val liveAdsData: LiveData<ArrayList<Ad>> get() = _liveAdsData
     fun loadAllAds() {
         dbManager.getAllAds(object : DbManager.ReadDataCallback {
             override fun readData(list: ArrayList<Ad>) {
-                liveAdsData.value = list
+                _liveAdsData.value = list
             }
         })
     }
@@ -19,7 +21,7 @@ class FirebaseViewModel : ViewModel() {
     fun loadAllAdsFromCat(cat: String) {
         dbManager.getAllAdsFromCat(cat, object : DbManager.ReadDataCallback {
             override fun readData(list: ArrayList<Ad>) {
-                liveAdsData.value = list
+                _liveAdsData.value = list
             }
         })
     }
@@ -27,7 +29,7 @@ class FirebaseViewModel : ViewModel() {
     fun onFavClick(ad: Ad) {
         dbManager.onFavClick(ad, object : DbManager.FinishWorkListener {
             override fun onFinish(isDome: Boolean) {
-                val updatedList = liveAdsData.value
+                val updatedList = _liveAdsData.value
                 val pos = updatedList?.indexOf(ad)
                 if (pos != -1) {
                     pos?.let {
@@ -39,7 +41,7 @@ class FirebaseViewModel : ViewModel() {
                         )
                     }
                 }
-                liveAdsData.postValue(updatedList!!)
+                _liveAdsData.postValue(updatedList!!)
             }
         })
     }
@@ -53,7 +55,7 @@ class FirebaseViewModel : ViewModel() {
     fun loadMyAds() {
         dbManager.getMyAds(object : DbManager.ReadDataCallback {
             override fun readData(list: ArrayList<Ad>) {
-                liveAdsData.value = list
+                _liveAdsData.value = list
             }
         })
     }
@@ -61,7 +63,7 @@ class FirebaseViewModel : ViewModel() {
     fun loadMyFavs() {
         dbManager.getMyFavs(object : DbManager.ReadDataCallback {
             override fun readData(list: ArrayList<Ad>) {
-                liveAdsData.value = list
+                _liveAdsData.value = list
             }
         })
     }
@@ -69,9 +71,9 @@ class FirebaseViewModel : ViewModel() {
     fun deleteItem(ad: Ad) {
         dbManager.deleteAd(ad, object : DbManager.FinishWorkListener {
             override fun onFinish(isDome: Boolean) {
-                val updatedList = liveAdsData.value
+                val updatedList = _liveAdsData.value
                 updatedList?.remove(ad)
-                liveAdsData.postValue(updatedList!!)
+                _liveAdsData.postValue(updatedList!!)
             }
         })
     }
