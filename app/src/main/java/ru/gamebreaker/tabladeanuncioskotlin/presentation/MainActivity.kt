@@ -9,11 +9,11 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseUser
@@ -34,7 +34,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val signDialog = SignDialog(this)
     val mAuth = Firebase.auth
     val adapter = AdRVAdapter(this)
-    private val firebaseViewModel: FirebaseViewModel by viewModels()
+    private val firebaseViewModel: FirebaseViewModel by lazy {
+        ViewModelProvider(this)[FirebaseViewModel::class.java]
+    }
     private var clearUpdate: Boolean = true
     private var currentCategory: String? = null
     private var filterDb: String? = ""
@@ -199,7 +201,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 mainContent.toolbar.title = getString(R.string.all_ads)
             }
             R.id.id_sign_up -> {
-                signDialog.createSignDialog(SignDialog.SIGN_IN_STATE)
+                signDialog.createSignDialog(SignDialog.SIGN_UP_STATE)
             }
             R.id.id_sign_in -> {
                 signDialog.createSignDialog(SignDialog.SIGN_IN_STATE)
@@ -234,6 +236,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun uiUpdate(user: FirebaseUser?) {
+        clearUpdate = true
         imAccount.setImageResource(R.drawable.ic_account_default)
         if (user == null) {
             signDialog.accHelper.signInAnonymously(object : AccountRepoImpl.Listener {
@@ -258,6 +261,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             binding.navView.menu.findItem(R.id.id_sign_up).isVisible = true
             binding.navView.menu.findItem(R.id.id_sign_out).isVisible = false
         }
+        filterDb?.let { firebaseViewModel.loadAllAds() }
+        initViewModel()
     }
 
     override fun onDeleteItem(ad: Ad) {

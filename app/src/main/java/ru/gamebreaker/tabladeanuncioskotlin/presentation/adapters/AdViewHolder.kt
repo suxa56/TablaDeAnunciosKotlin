@@ -19,17 +19,18 @@ class AdViewHolder(
 ) :
     RecyclerView.ViewHolder(binding.root) {
 
-    private val isAnonymous = act.mAuth.currentUser?.isAnonymous
+    private val user = act.mAuth.currentUser
 
     fun setData(ad: Ad) = with(binding) {
         tvDescription.text = ad.description
         tvPriceName.text = ad.price
         tvTitle.text = ad.title
         tvViewCounter.text = ad.viewsCounter
-        if (isAnonymous!!) {
+        if (user?.isAnonymous == true || user == null) {
             ibFav.visibility = View.GONE
             tvFavCounter.visibility = View.GONE
         } else {
+            ibFav.visibility = View.VISIBLE
             tvFavCounter.text = ad.favCounter
         }
 
